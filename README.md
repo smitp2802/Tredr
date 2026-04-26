@@ -5,7 +5,7 @@ Crypto algo trading system using RSI + MACD strategy, feeding signals into n8n f
 ## Project Structure
 
 ```
-trading-rig/
+Tredr/
 ├── strategy/
 │   ├── main.py          # Main loop — fetches data, generates signals, fires to n8n
 │   ├── indicators.py    # RSI, MACD, EMA, Bollinger Bands calculations
