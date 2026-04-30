@@ -23,7 +23,7 @@ PAIRS = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]   # Add/remove pairs here
 INTERVAL = "15m"                              # Binance interval
 CANDLE_LIMIT = 250                            # Enough for EMA200 + indicators
 LOOP_SLEEP = 60 * 15                          # Re-check every 15 minutes (in seconds)
-MIN_CONFIDENCE = 70                           # Only send signal if confidence >= this
+MIN_CONFIDENCE = 0                          # Only send signal if confidence >= this
 
 N8N_WEBHOOK="http://localhost:5678/webhook-test/trading-signal" # Update with your n8n webhook URL
 
