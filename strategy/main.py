@@ -15,7 +15,7 @@ import logging
 import requests
 import pandas as pd
 from datetime import datetime
-from signal import generate_signal
+from trade_signal import generate_signal
 
 # ─── Config ───────────────────────────────────────────────────────────────────
 
