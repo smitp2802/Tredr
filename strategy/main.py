@@ -25,7 +25,7 @@ CANDLE_LIMIT = 250                            # Enough for EMA200 + indicators
 LOOP_SLEEP = 60 * 15                          # Re-check every 15 minutes (in seconds)
 MIN_CONFIDENCE = 70                           # Only send signal if confidence >= this
 
-N8N_WEBHOOK="http://localhost:5678/webhook-test/b758ae7f-96c4-47c4-bb86-8925674e932b" # Update with your n8n webhook URL
+N8N_WEBHOOK="http://localhost:5678/webhook-test/trading-signal" # Update with your n8n webhook URL
 
 BINANCE_BASE = "https://api.binance.com/api/v3/klines"
 
