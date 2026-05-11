@@ -1,0 +1,81 @@
+from regimes import detect_regime
+
+
+def generate_signal(df):
+
+    latest = df.iloc[-1]
+    previous = df.iloc[-2]
+
+    regime = detect_regime(
+        latest['adx']
+    )
+
+    signal = "HOLD"
+
+    if regime == "TREND":
+
+        bullish_trend = (
+            latest['ema50'] > latest['ema200']
+        )
+
+        bearish_trend = (
+            latest['ema50'] < latest['ema200']
+        )
+
+        reclaim_long = (
+            previous['close'] <= previous['ema20']
+            and latest['close'] > latest['ema20']
+        )
+
+        reclaim_short = (
+            previous['close'] >= previous['ema20']
+            and latest['close'] < latest['ema20']
+        )
+
+        momentum_long = (
+            latest['rsi'] > 52
+        )
+
+        momentum_short = (
+            latest['rsi'] < 48
+        )
+
+        strength = (
+            latest['adx'] > 20
+        )
+
+        bullish_candle = (
+            latest['close'] > latest['open']
+        )
+
+        bearish_candle = (
+            latest['close'] < latest['open']
+        )
+
+        if (
+            bullish_trend
+            and reclaim_long
+            and momentum_long
+            and bullish_candle
+            and strength
+        ):
+
+            signal = "BUY"
+
+        elif (
+            bearish_trend
+            and reclaim_short
+            and momentum_short
+            and bearish_candle
+            and strength
+        ):
+
+            signal = "SELL"
+
+    return {
+        "signal": signal,
+        "regime": regime,
+        "price": latest['close'],
+        "rsi": latest['rsi'],
+        "adx": latest['adx']
+    }
