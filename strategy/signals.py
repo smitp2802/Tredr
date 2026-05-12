@@ -57,6 +57,9 @@ def generate_signal(df):
         bearish_candle = (
             latest['close'] < latest['open']
         )
+        macro_trend_long = (
+            latest['ema200'] > df['ema200'].iloc[-10]
+        )
         
         volatility_expansion = (
             latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
@@ -75,6 +78,7 @@ def generate_signal(df):
             and volatility_expansion
             and ema_slope_long
             and atr_expansion
+            and macro_trend_long
         ):
             signal = "BUY"
 
