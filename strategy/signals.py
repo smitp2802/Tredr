@@ -73,7 +73,7 @@ def generate_signal(df):
     return {
         "signal": signal,
         "regime": regime,
-        "price": latest['close'],
-        "rsi": latest['rsi'],
-        "adx": latest['adx']
+        "price": round(float(latest['close']), 2),
+        "rsi": round(float(latest['rsi']), 2),
+        "adx": round(float(latest['adx']), 2)
     }
