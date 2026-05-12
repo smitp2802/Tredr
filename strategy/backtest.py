@@ -87,7 +87,7 @@ pf = vbt.Portfolio.from_signals(
     sl_stop=sl_stop,
     sl_trail=True,
 
-    fees=0.005,
+    fees=0.0005,
     slippage=0.0005,
     tp_stop=0.06,
 
