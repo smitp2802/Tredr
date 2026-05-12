@@ -51,7 +51,16 @@ df = clean_dataframe(df)
 
 signals = []
 
+last_trade_index = -12
+
 for i in range(200, len(df)):
+
+    # Cooldown period
+    if i - last_trade_index < 12:
+
+        signals.append("HOLD")
+
+        continue
 
     temp_df = df.iloc[:i]
 
@@ -61,15 +70,10 @@ for i in range(200, len(df)):
         signal_data['signal']
     )
 
-signals = (
-    ['HOLD'] * 200
-    + signals
-)
+    # Update last trade time
+    if signal_data['signal'] == "BUY":
 
-entries = (
-    pd.Series(signals, index=df.index)
-    == 'BUY'
-)
+        last_trade_index = i
 
 short_entries = (
     pd.Series(signals, index=df.index)
