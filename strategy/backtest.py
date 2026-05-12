@@ -79,6 +79,9 @@ for i in range(200, len(df)):
     signals = ( 
         ['HOLD'] * missing_signals + signals 
     )
+    entries = (
+        pd.Series(signals, index=df.index) == 'BUY'
+    )
 sl_stop = (( df['atr'] * 1.5 ) / df['close'])
 
 pf = vbt.Portfolio.from_signals(
