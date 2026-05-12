@@ -75,12 +75,18 @@ short_entries = (
     == 'SELL'
 )
 
+sl_stop = (( df['atr'] * 1.5 ) / df['close'])
+
 pf = vbt.Portfolio.from_signals(
     close=df['close'],
     entries=entries,
     short_entries=short_entries,
+
     exits=(df['close'] < df['ema20']),
     short_exits=(df['close'] > df['ema20']),
+
+    sl_stop=sl_stop,
+
     fees=0.001,
     slippage=0.0005,
     init_cash=10_000
