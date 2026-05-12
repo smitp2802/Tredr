@@ -1,6 +1,4 @@
-from regimes import detect_regime
-
-
+from strategy.regimes import detect_regime
 def generate_signal(df):
 
     latest = df.iloc[-1]
