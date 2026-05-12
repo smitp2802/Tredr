@@ -67,6 +67,9 @@ def generate_signal(df):
         ema_slope_long = ( 
             latest['ema50'] > df['ema50'].iloc[-5]
         )
+        pullback_depth = (
+            (latest['ema20'] - latest['low']) / latest['ema20']
+        )
         
         if (
             bullish_trend
@@ -79,6 +82,7 @@ def generate_signal(df):
             and ema_slope_long
             and atr_expansion
             and macro_trend_long
+            and 0.002 < pullback_depth < 0.015
         ):
             signal = "BUY"
 
