@@ -85,6 +85,7 @@ def generate_signal(df):
             and momentum_short
             and bearish_candle
             and strength
+            and atr_expansion
         ):
 
             signal = "SELL"
