@@ -56,7 +56,7 @@ last_trade_index = -12
 for i in range(200, len(df)):
 
     # Cooldown period
-    if i - last_trade_index < 12:
+    if i - last_trade_index < 6:
 
         signals.append("HOLD")
 
