@@ -110,8 +110,9 @@ def generate_signal(df):
     # ─────────────────────────────
 
     bullish_candle = (
-        latest['close']
-        > latest['open']
+        latest['close'] > latest['open']
+        and
+        previous['close'] > previous['open']
     )
 
     bearish_candle = (
