@@ -79,6 +79,9 @@ for i in range(200, len(df)):
     signals = ( 
         ['HOLD'] * missing_signals + signals 
     )
+    signals = (['HOLD'] * 200 + signals)
+    signals = signals[:len(df)]
+    
     entries = (
         pd.Series(signals, index=df.index) == 'BUY'
     )
