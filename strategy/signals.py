@@ -42,6 +42,9 @@ def generate_signal(df):
         momentum_short = (
             latest['rsi'] < 48
         )
+        atr_expansion = (
+            latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
+        )
 
         strength = (
             latest['adx'] > 18
@@ -71,6 +74,7 @@ def generate_signal(df):
             and strength
             and volatility_expansion
             and ema_slope_long
+            and atr_expansion
         ):
             signal = "BUY"
 
