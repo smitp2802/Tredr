@@ -1,4 +1,5 @@
 from strategy.regimes import detect_regime
+
 def generate_signal(df):
 
     latest = df.iloc[-1]
@@ -10,97 +11,201 @@ def generate_signal(df):
 
     signal = "HOLD"
 
+    # ─────────────────────────────
+    # Trend Conditions
+    # ─────────────────────────────
+
+    bullish_trend = (
+        latest['ema50']
+        > latest['ema200']
+    )
+
+    bearish_trend = (
+        latest['ema50']
+        < latest['ema200']
+    )
+
+    # EMA slope confirmation
+
+    ema_slope_long = (
+        latest['ema50']
+        > df['ema50'].iloc[-5]
+    )
+
+    ema_slope_short = (
+        latest['ema50']
+        < df['ema50'].iloc[-5]
+    )
+
+    # Macro structure confirmation
+
+    macro_trend_long = (
+        latest['ema200']
+        > df['ema200'].iloc[-10]
+    )
+
+    macro_trend_short = (
+        latest['ema200']
+        < df['ema200'].iloc[-10]
+    )
+
+    # ─────────────────────────────
+    # Pullback + Breakout
+    # ─────────────────────────────
+
+    recent_pullback_long = (
+        df['low'].tail(3).min()
+        <= latest['ema20']
+    )
+
+    recent_pullback_short = (
+        df['high'].tail(3).max()
+        >= latest['ema20']
+    )
+
+    breakout_long = (
+        latest['close']
+        > previous['high']
+    )
+
+    breakout_short = (
+        latest['close']
+        < previous['low']
+    )
+
+    # ─────────────────────────────
+    # Momentum
+    # ─────────────────────────────
+
+    momentum_long = (
+        latest['rsi']
+        > 50
+    )
+
+    momentum_short = (
+        latest['rsi']
+        < 50
+    )
+
+    # ─────────────────────────────
+    # Strength
+    # ─────────────────────────────
+
+    strength = (
+        latest['adx']
+        > 18
+    )
+
+    # ─────────────────────────────
+    # Volatility Expansion
+    # ─────────────────────────────
+
+    atr_expansion = (
+        latest['atr']
+        > df['atr'].rolling(20).mean().iloc[-1]
+    )
+
+    # ─────────────────────────────
+    # Candle Confirmation
+    # ─────────────────────────────
+
+    bullish_candle = (
+        latest['close']
+        > latest['open']
+    )
+
+    bearish_candle = (
+        latest['close']
+        < latest['open']
+    )
+
+    # ─────────────────────────────
+    # LONG SCORE
+    # ─────────────────────────────
+
+    score_long = 0
+
+    if bullish_trend:
+        score_long += 2
+
+    if ema_slope_long:
+        score_long += 1
+
+    if macro_trend_long:
+        score_long += 1
+
+    if recent_pullback_long:
+        score_long += 1
+
+    if breakout_long:
+        score_long += 2
+
+    if momentum_long:
+        score_long += 1
+
+    if strength:
+        score_long += 1
+
+    if atr_expansion:
+        score_long += 1
+
+    if bullish_candle:
+        score_long += 1
+
+    # ─────────────────────────────
+    # SHORT SCORE
+    # ─────────────────────────────
+
+    score_short = 0
+
+    if bearish_trend:
+        score_short += 2
+
+    if ema_slope_short:
+        score_short += 1
+
+    if macro_trend_short:
+        score_short += 1
+
+    if recent_pullback_short:
+        score_short += 1
+
+    if breakout_short:
+        score_short += 2
+
+    if momentum_short:
+        score_short += 1
+
+    if strength:
+        score_short += 1
+
+    if atr_expansion:
+        score_short += 1
+
+    if bearish_candle:
+        score_short += 1
+
+    # ─────────────────────────────
+    # Final Signal
+    # ─────────────────────────────
+
     if regime == "TREND":
 
-        bullish_trend = (
-            latest['ema50'] > latest['ema200']
-        )
+        # LONG ONLY FOR NOW
 
-        bearish_trend = (
-            latest['ema50'] < latest['ema200']
-        )
-
-        recent_pullback_long = (
-            df['low'].tail(3).min() <= latest['ema20']
-        )
-
-        recent_pullback_short = (
-            df['high'].tail(3).max() >= latest['ema20']
-        )
-        
-        breakout_long = (
-            latest['close'] > previous['high']
-        )
-        breakout_short = (
-            latest['close'] < previous['low']
-        )
-
-        momentum_long = (
-            latest['rsi'] > 50
-        )
-
-        momentum_short = (
-            latest['rsi'] < 48
-        )
-        atr_expansion = (
-            latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
-        )
-
-        strength = (
-            latest['adx'] > 18
-        )
-
-        bullish_candle = (
-            latest['close'] > latest['open']
-        )
-
-        bearish_candle = (
-            latest['close'] < latest['open']
-        )
-        macro_trend_long = (
-            latest['ema200'] > df['ema200'].iloc[-10]
-        )
-        
-        volatility_expansion = (
-            latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
-        )
-        ema_slope_long = ( 
-            latest['ema50'] > df['ema50'].iloc[-5]
-        )
-        pullback_depth = (
-            (latest['ema20'] - latest['low']) / latest['ema20']
-        )
-        
-        if (
-            bullish_trend
-            and recent_pullback_long
-            and breakout_long
-            and momentum_long
-            and bullish_candle
-            and strength
-            and volatility_expansion
-            and ema_slope_long
-            and atr_expansion
-            and macro_trend_long
-            and 0.002 < pullback_depth < 0.015
-        ):
+        if score_long >= 7:
             signal = "BUY"
 
-        elif (
-            bearish_trend
-            and recent_pullback_short
-            and breakout_short
-            and momentum_short
-            and bearish_candle
-            and strength
-            and atr_expansion
-        ):
+        # Uncomment later if needed
 
-            signal = "SELL"
+        # elif score_short >= 7:
+        #     signal = "SELL"
 
     return {
         "signal": signal,
         "regime": regime,
+        "score_long": score_long,
+        "score_short": score_short,
         "price": round(float(latest['close']), 2),
         "rsi": round(float(latest['rsi']), 2),
         "adx": round(float(latest['adx']), 2)
