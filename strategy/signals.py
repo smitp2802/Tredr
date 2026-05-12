@@ -146,9 +146,6 @@ def generate_signal(df):
     if strength:
         score_long += 1
 
-    if atr_expansion:
-        score_long += 1
-
     if bullish_candle:
         score_long += 1
 
@@ -193,7 +190,7 @@ def generate_signal(df):
 
         # LONG ONLY FOR NOW
 
-        if score_long >= 8:
+        if score_long >= 7:
             signal = "BUY"
 
         # Uncomment later if needed
