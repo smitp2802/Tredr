@@ -14,7 +14,7 @@ def fetch_data():
     bars = exchange.fetch_ohlcv(
         'BTC/USDT',
         timeframe='15m',
-        limit=2000
+        limit=10000
     )
 
     df = pd.DataFrame(
