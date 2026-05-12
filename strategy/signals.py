@@ -21,17 +21,17 @@ def generate_signal(df):
         )
 
         reclaim_long = (
-            previous['close'] <= previous['ema20']
-            and latest['close'] > latest['ema20']
+            latest['close'] > latest['ema20']
+            and latest['low'] <= latest['ema20']
         )
-
+        
         reclaim_short = (
-            previous['close'] >= previous['ema20']
-            and latest['close'] < latest['ema20']
+            latest['close'] < latest['ema20']
+            and latest['high'] >= latest['ema20']
         )
 
         momentum_long = (
-            latest['rsi'] > 52
+            latest['rsi'] > 50
         )
 
         momentum_short = (
@@ -39,7 +39,7 @@ def generate_signal(df):
         )
 
         strength = (
-            latest['adx'] > 20
+            latest['adx'] > 18
         )
 
         bullish_candle = (
