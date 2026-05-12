@@ -74,12 +74,11 @@ for i in range(200, len(df)):
     if signal_data['signal'] == "BUY":
 
         last_trade_index = i
-
-short_entries = (
-    pd.Series(signals, index=df.index)
-    == 'SELL'
-)
-
+        
+    missing_signals = len(df) - len(signals)
+    signals = ( 
+        ['HOLD'] * missing_signals + signals 
+    )
 sl_stop = (( df['atr'] * 1.5 ) / df['close'])
 
 pf = vbt.Portfolio.from_signals(
