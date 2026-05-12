@@ -81,7 +81,7 @@ sl_stop = (( df['atr'] * 1.5 ) / df['close'])
 pf = vbt.Portfolio.from_signals(
     close=df['close'],
     entries=entries,
-    short_entries=short_entries,
+    #short_entries=short_entries,
 
     sl_stop=sl_stop,
     sl_trail=True,
