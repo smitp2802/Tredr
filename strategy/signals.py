@@ -193,7 +193,7 @@ def generate_signal(df):
 
         # LONG ONLY FOR NOW
 
-        if score_long >= 7:
+        if score_long >= 8:
             signal = "BUY"
 
         # Uncomment later if needed
