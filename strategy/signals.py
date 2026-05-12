@@ -55,6 +55,10 @@ def generate_signal(df):
             latest['close'] < latest['open']
         )
         
+        volatility_expansion = (
+            latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
+        )
+        
         if (
             bullish_trend
             and recent_pullback_long
@@ -62,6 +66,7 @@ def generate_signal(df):
             and momentum_long
             and bullish_candle
             and strength
+            and volatility_expansion
         ):
             signal = "BUY"
 
