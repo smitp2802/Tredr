@@ -16,37 +16,35 @@ def generate_signal(df):
     # ─────────────────────────────
 
     bullish_trend = (
-        latest['ema50']
-        > latest['ema200']
+        latest['ema50'] > latest['ema200']
+    )
+    
+    higher_tf_trend = (
+        latest['close'] > latest['ema200']
     )
 
     bearish_trend = (
-        latest['ema50']
-        < latest['ema200']
+        latest['ema50'] < latest['ema200']
     )
 
     # EMA slope confirmation
 
     ema_slope_long = (
-        latest['ema50']
-        > df['ema50'].iloc[-5]
+        latest['ema50'] > df['ema50'].iloc[-5]
     )
 
     ema_slope_short = (
-        latest['ema50']
-        < df['ema50'].iloc[-5]
+        latest['ema50'] < df['ema50'].iloc[-5]
     )
 
     # Macro structure confirmation
 
     macro_trend_long = (
-        latest['ema200']
-        > df['ema200'].iloc[-10]
+        latest['ema200'] > df['ema200'].iloc[-10]
     )
 
     macro_trend_short = (
-        latest['ema200']
-        < df['ema200'].iloc[-10]
+        latest['ema200'] < df['ema200'].iloc[-10]
     )
 
     # ─────────────────────────────
@@ -54,23 +52,19 @@ def generate_signal(df):
     # ─────────────────────────────
 
     recent_pullback_long = (
-        df['low'].tail(3).min()
-        <= latest['ema20']
+        df['low'].tail(3).min() <= latest['ema20']
     )
 
     recent_pullback_short = (
-        df['high'].tail(3).max()
-        >= latest['ema20']
+        df['high'].tail(3).max() >= latest['ema20']
     )
 
     breakout_long = (
-        latest['close']
-        > previous['ema20']
+        latest['close'] > previous['ema20']
     )
 
     breakout_short = (
-        latest['close']
-        < previous['low']
+        latest['close'] < previous['low']
     )
 
     # ─────────────────────────────
@@ -78,13 +72,11 @@ def generate_signal(df):
     # ─────────────────────────────
 
     momentum_long = (
-        latest['rsi']
-        > 50
+        latest['rsi'] > 50
     )
 
     momentum_short = (
-        latest['rsi']
-        < 50
+        latest['rsi'] < 50
     )
 
     # ─────────────────────────────
@@ -92,8 +84,7 @@ def generate_signal(df):
     # ─────────────────────────────
 
     strength = (
-        latest['adx']
-        > 18
+        latest['adx'] > 18
     )
 
     # ─────────────────────────────
@@ -101,21 +92,18 @@ def generate_signal(df):
     # ─────────────────────────────
 
     atr_expansion = (
-        latest['atr']
-        > df['atr'].rolling(20).mean().iloc[-1]
+        latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
     )
 
     # ─────────────────────────────
     # Candle Confirmation
     # ─────────────────────────────
     bullish_candle = (
-        latest['close']
-        > latest['open']
+        latest['close'] > latest['open']
     )
 
     bearish_candle = (
-        latest['close']
-        < latest['open']
+        latest['close'] < latest['open']
     )
 
     # ─────────────────────────────
@@ -147,6 +135,9 @@ def generate_signal(df):
 
     if bullish_candle:
         score_long += 1
+        
+    if higher_tf_trend:
+        score_long += 2
 
     # ─────────────────────────────
     # SHORT SCORE
