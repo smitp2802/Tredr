@@ -2,9 +2,9 @@ import ccxt
 import pandas as pd
 import vectorbt as vbt
 
-from indicators import apply_indicators
-from signals import generate_signal
-from utils import clean_dataframe
+from strategy.indicators import apply_indicators
+from strategy.signals import generate_signal
+from strategy.utils import clean_dataframe
 
 exchange = ccxt.delta()
 
