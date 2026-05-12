@@ -75,7 +75,7 @@ for i in range(200, len(df)):
 
         last_trade_index = i
         
-    missing_signals = len(df) - len(signals)
+    missing_signals = ( len(df.index) - len(signals) - 1)
     signals = ( 
         ['HOLD'] * missing_signals + signals 
     )
