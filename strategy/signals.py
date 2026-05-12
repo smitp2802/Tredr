@@ -58,6 +58,9 @@ def generate_signal(df):
         volatility_expansion = (
             latest['atr'] > df['atr'].rolling(20).mean().iloc[-1]
         )
+        ema_slope_long = ( 
+            latest['ema50'] > df['ema50'].iloc[-5]
+        )
         
         if (
             bullish_trend
@@ -67,6 +70,7 @@ def generate_signal(df):
             and bullish_candle
             and strength
             and volatility_expansion
+            and ema_slope_long
         ):
             signal = "BUY"
 
