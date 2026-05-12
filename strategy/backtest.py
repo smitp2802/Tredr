@@ -82,11 +82,8 @@ pf = vbt.Portfolio.from_signals(
     entries=entries,
     short_entries=short_entries,
 
-    exits=(df['close'] < df['ema20']),
-    short_exits=(df['close'] > df['ema20']),
-
     sl_stop=sl_stop,
-
+    sl_trail=True,
     fees=0.001,
     slippage=0.0005,
     init_cash=10_000
