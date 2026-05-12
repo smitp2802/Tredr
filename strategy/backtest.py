@@ -38,6 +38,7 @@ def fetch_data():
         'timestamp',
         inplace=True
     )
+    print(f"Fetched candles: {len(df)}")
 
     return df
 
