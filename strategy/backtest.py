@@ -49,42 +49,33 @@ df = apply_indicators(df)
 
 df = clean_dataframe(df)
 
-signals = []
+signals = pd.Series(
+    "HOLD",
+    index=df.index
+)
 
 last_trade_index = -12
 
 for i in range(200, len(df)):
 
-    # Cooldown period
+    # Cooldown
     if i - last_trade_index < 6:
-
-        signals.append("HOLD")
-
         continue
 
     temp_df = df.iloc[:i]
 
     signal_data = generate_signal(temp_df)
 
-    signals.append(
-        signal_data['signal']
-    )
+    signals.iloc[i] = signal_data['signal']
 
-    # Update last trade time
     if signal_data['signal'] == "BUY":
 
         last_trade_index = i
-        
-    missing_signals = ( len(df.index) - len(signals) - 1)
-    signals = ( 
-        ['HOLD'] * missing_signals + signals 
-    )
-    signals = (['HOLD'] * 200 + signals)
-    signals = signals[:len(df)]
-    
-    entries = (
-        pd.Series(signals, index=df.index) == 'BUY'
-    )
+
+
+entries = (
+    signals == 'BUY'
+)
 sl_stop = (( df['atr'] * 1.5 ) / df['close'])
 
 pf = vbt.Portfolio.from_signals(
