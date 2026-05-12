@@ -59,7 +59,7 @@ last_trade_index = -12
 for i in range(200, len(df)):
 
     # Cooldown
-    if i - last_trade_index < 6:
+    if i - last_trade_index < 24:
         continue
 
     temp_df = df.iloc[:i]
