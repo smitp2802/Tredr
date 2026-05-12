@@ -185,23 +185,12 @@ def generate_signal(df):
     # ─────────────────────────────
     # Final Signal
     # ─────────────────────────────
-    print(
-    "score_long:",
-    score_long,
-    "| trend:",
-    bullish_trend,
-    "| breakout:",
-    breakout_long,
-    "| momentum:",
-    momentum_long,
-    "| strength:",
-    strength
-    )
+
     #if regime == "TREND":
     if True:
         # LONG ONLY FOR NOW
 
-        if score_long >= 3:
+        if score_long >= 8:
             signal = "BUY"
 
         # Uncomment later if needed
