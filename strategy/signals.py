@@ -20,14 +20,19 @@ def generate_signal(df):
             latest['ema50'] < latest['ema200']
         )
 
-        reclaim_long = (
-            latest['close'] > latest['ema20']
-            and latest['low'] <= latest['ema20']
+        recent_pullback_long = (
+            df['low'].tail(3).min() <= latest['ema20']
+        )
+
+        recent_pullback_short = (
+            df['high'].tail(3).max() >= latest['ema20']
         )
         
-        reclaim_short = (
-            latest['close'] < latest['ema20']
-            and latest['high'] >= latest['ema20']
+        breakout_long = (
+            latest['close'] > previous['high']
+        )
+        breakout_short = (
+            latest['close'] < previous['low']
         )
 
         momentum_long = (
@@ -49,20 +54,21 @@ def generate_signal(df):
         bearish_candle = (
             latest['close'] < latest['open']
         )
-
+        
         if (
             bullish_trend
-            and reclaim_long
+            and recent_pullback_long
+            and breakout_long
             and momentum_long
             and bullish_candle
             and strength
         ):
-
             signal = "BUY"
 
         elif (
             bearish_trend
-            and reclaim_short
+            and recent_pullback_short
+            and breakout_short
             and momentum_short
             and bearish_candle
             and strength
