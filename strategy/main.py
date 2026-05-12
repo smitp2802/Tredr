@@ -1,17 +1,17 @@
 import ccxt
 import pandas as pd
 
-from config import (
+from strategy.config import (
     PAIR,
     TIMEFRAME,
     LOOKBACK
 )
 
-from indicators import apply_indicators
-from signals import generate_signal
-from execution import place_order
-from journal import log_trade
-from utils import clean_dataframe
+from strategy.indicators import apply_indicators
+from strategy.signals import generate_signal
+from strategy.execution import place_order
+from strategy.journal import log_trade
+from strategy.utils import clean_dataframe
 
 exchange = ccxt.delta()
 
