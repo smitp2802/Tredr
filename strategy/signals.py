@@ -65,7 +65,7 @@ def generate_signal(df):
 
     breakout_long = (
         latest['close']
-        > previous['high']
+        > previous['ema20']
     )
 
     breakout_short = (
@@ -190,7 +190,7 @@ def generate_signal(df):
 
         # LONG ONLY FOR NOW
 
-        if score_long >= 7:
+        if score_long >= 6:
             signal = "BUY"
 
         # Uncomment later if needed
