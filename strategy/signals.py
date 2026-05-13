@@ -106,6 +106,14 @@ def generate_signal(df):
         latest['close'] < latest['open']
     )
 
+    #______________________________
+    # Volume confirm
+    #______________________________
+
+    volume_confirm = (
+        latest['volume'] > latest['volume_ma'] * 1.5
+    )
+
     # ─────────────────────────────
     # LONG SCORE
     # ─────────────────────────────
@@ -137,6 +145,9 @@ def generate_signal(df):
         score_long += 1
         
     if higher_tf_trend:
+        score_long += 2
+
+    if volume_confirm:
         score_long += 2
 
     # ─────────────────────────────
