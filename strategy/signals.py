@@ -58,6 +58,10 @@ def generate_signal(df):
     recent_pullback_short = (
         df['high'].tail(3).max() >= latest['ema20']
     )
+    
+    pullback_ok = (
+        latest['close'] < latest['ema20'] * 1.02
+    )
 
     breakout_long = (
         latest['close'] > previous['ema20']
@@ -118,7 +122,7 @@ def generate_signal(df):
     distance_from_ema = (
         abs(latest['close'] - latest['ema20']) / latest['ema20']
     )
-    not_overextended = distance_from_ema < 0.025
+    not_overextended = distance_from_ema < 0.015
 
     # ─────────────────────────────
     # LONG SCORE
@@ -191,6 +195,9 @@ def generate_signal(df):
 
     if bearish_candle:
         score_short += 1
+        
+    if pullback_ok:
+        score_long += 1
 
     # ─────────────────────────────
     # Final Signal
