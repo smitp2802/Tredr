@@ -122,8 +122,16 @@ def generate_signal(df):
     distance_from_ema = (
         abs(latest['close'] - latest['ema20']) / latest['ema20']
     )
-    not_overextended = distance_from_ema < 0.012
 
+    # Volatility-adjusted threshold
+    ema_threshold = (
+        (latest['atr'] / latest['close']) * 1.2
+    )
+
+    not_overextended = (
+        distance_from_ema < ema_threshold
+    )
+    
     #htf_Tend
     htf_trend = latest['htf_bullish']
 
