@@ -116,7 +116,7 @@ def generate_signal(df):
 
     # Distance from EMA
     distance_from_ema = (
-        abs(latest['close'] - latest['ema_fast']) / latest['ema_fast']
+        abs(latest['close'] - latest['ema_20']) / latest['ema_20']
     )
     not_overextended = distance_from_ema < 0.025
 
