@@ -114,7 +114,7 @@ entries = (
     signals == 'BUY'
 )
 sl_stop = (( df['atr'] * 1.5 ) / df['close'])
-tp_stop = ((df['atr'] * 3.0) / df['close'])
+tp_stop = ((df['atr'] * 6.0) / df['close'])
 
 pf = vbt.Portfolio.from_signals(
 
