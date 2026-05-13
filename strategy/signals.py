@@ -114,6 +114,12 @@ def generate_signal(df):
         latest['volume'] > latest['volume_ma'] * 1.5
     )
 
+    # Distance from EMA
+    distance_from_ema = (
+        abs(latest['close'] - latest['ema_fast']) / latest['ema_fast']
+    )
+    not_overextended = distance_from_ema < 0.025
+
     # ─────────────────────────────
     # LONG SCORE
     # ─────────────────────────────
@@ -149,6 +155,9 @@ def generate_signal(df):
 
     if volume_confirm:
         score_long += 2
+        
+    if not_overextended:
+        score_long += 1
 
     # ─────────────────────────────
     # SHORT SCORE
