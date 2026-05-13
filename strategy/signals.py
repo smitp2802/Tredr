@@ -122,7 +122,7 @@ def generate_signal(df):
     distance_from_ema = (
         abs(latest['close'] - latest['ema20']) / latest['ema20']
     )
-    not_overextended = distance_from_ema < 0.015
+    not_overextended = distance_from_ema < 0.012
 
     #htf_Tend
     htf_trend = latest['htf_bullish']
