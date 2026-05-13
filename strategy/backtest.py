@@ -13,7 +13,9 @@ def fetch_data():
 
     # 1H DATA
     bars_1h = exchange.fetch_ohlcv(
-        'BTC/USDT', timeframe='1h',
+        #'BTC/USDT',
+        'ETH/USDT',
+        timeframe='1h',
         limit=10000
     )
 
