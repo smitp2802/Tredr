@@ -131,6 +131,14 @@ def generate_signal(df):
     not_overextended = (
         distance_from_ema < ema_threshold
     )
+    if not not_overextended:
+    return {
+        "signal": "HOLD",
+        "regime": regime,
+        "score_long": score_long,
+        "score_short": score_short,
+        "price": round(float(latest['close']), 2)
+    }
     
     #htf_Tend
     htf_trend = latest['htf_bullish']
