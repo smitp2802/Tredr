@@ -36,5 +36,6 @@ def apply_indicators(df):
         df['close'],
         window=14
     )
+    df['volume_ma'] = df['volume'].rolling(20).mean()
 
     return df
