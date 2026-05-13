@@ -124,6 +124,9 @@ def generate_signal(df):
     )
     not_overextended = distance_from_ema < 0.015
 
+    #htf_Tend
+    htf_trend = latest['htf_bullish']
+
     # ─────────────────────────────
     # LONG SCORE
     # ─────────────────────────────
@@ -162,6 +165,9 @@ def generate_signal(df):
         
     if not_overextended:
         score_long += 1
+
+    if htf_trend:
+        score_long += 2
 
     # ─────────────────────────────
     # SHORT SCORE
