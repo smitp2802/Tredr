@@ -128,7 +128,6 @@ pf = vbt.Portfolio.from_signals(
 
     fees=0.0005,
     slippage=0.0005,
-    tp_stop=0.06,
 
     init_cash=10_000
 )
