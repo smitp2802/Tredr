@@ -167,7 +167,7 @@ def generate_signal(df):
         score_long += 1
 
     if htf_trend:
-        score_long += 2
+        score_long += 1
 
     # ─────────────────────────────
     # SHORT SCORE
