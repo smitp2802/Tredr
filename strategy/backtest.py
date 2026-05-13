@@ -11,14 +11,35 @@ exchange = ccxt.delta()
 
 def fetch_data():
 
-    bars = exchange.fetch_ohlcv(
-        'BTC/USDT',
-        timeframe='1h',
+    # 1H DATA
+    bars_1h = exchange.fetch_ohlcv(
+        'BTC/USDT', timeframe='1h',
         limit=10000
     )
 
-    df = pd.DataFrame(
-        bars,
+    df_1h = pd.DataFrame( 
+        bars_1h, columns=['timestamp','open','high','low','close','volume']
+    )
+
+    df_1h['timestamp'] = pd.to_datetime(
+        df_1h['timestamp'],
+        unit='ms'
+    )
+
+    df_1h.set_index(
+        'timestamp',
+        inplace=True
+    )
+
+    # 4H DATA
+    bars_4h = exchange.fetch_ohlcv(
+        'BTC/USDT',
+        timeframe='4h',
+        limit=3000
+    )
+
+    df_4h = pd.DataFrame(
+        bars_4h,
         columns=[
             'timestamp',
             'open',
@@ -29,20 +50,36 @@ def fetch_data():
         ]
     )
 
-    df['timestamp'] = pd.to_datetime(
-        df['timestamp'],
+    df_4h['timestamp'] = pd.to_datetime(
+        df_4h['timestamp'],
         unit='ms'
     )
 
-    df.set_index(
+    df_4h.set_index(
         'timestamp',
         inplace=True
     )
-    print(f"Fetched candles: {len(df)}")
 
-    return df
+    # APPLY INDICATORS
+    df_1h = apply_indicators(df_1h)
+    df_4h = apply_indicators(df_4h)
 
+    # HTF TREND
+    df_4h['htf_bullish'] = (
+        df_4h['ema20'] >
+        df_4h['ema50']
+    )
 
+    # MERGE HTF INTO 1H
+    df_1h['htf_bullish'] = (
+        df_4h['htf_bullish']
+        .reindex(df_1h.index, method='ffill')
+    )
+
+    print(f"Fetched candles: {len(df_1h)}")
+
+    return df_1h
+    
 df = fetch_data()
 
 df = apply_indicators(df)
