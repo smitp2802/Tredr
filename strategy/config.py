@@ -5,10 +5,10 @@ PAIR = "BTCUSDT"
 PAIR_CONFIGS = {
 
     "BTCUSDT": {
-        "SCORE_THRESHOLD": 8,
+        "SCORE_THRESHOLD": 9,
         "VOLUME_MULTIPLIER": 1.5,
         "COOLDOWN_CANDLES": 24,
-        "TP_TARGET": 0.06,
+        "TP_TARGET": 0.08,
         "EMA_DISTANCE_THRESHOLD": 0.015,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
         "SL_ATR_MULTIPLIER": 1.5,
