@@ -134,15 +134,6 @@ def generate_signal(df):
     score_long = 0
     score_short = 0
     
-    if not not_overextended:
-        return {
-            "signal": "HOLD",
-            "regime": regime,
-            "score_long": score_long,
-            "score_short": score_short,
-            "price": round(float(latest['close']), 2)
-        }
-    
     #htf_Tend
     htf_trend = latest['htf_bullish']
 
