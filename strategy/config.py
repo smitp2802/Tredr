@@ -8,7 +8,7 @@ PAIR_CONFIGS = {
         "SCORE_THRESHOLD": 9,
         "VOLUME_MULTIPLIER": 1.5,
         "COOLDOWN_CANDLES": 36,
-        "TP_TARGET": 0.08,
+        "TP_TARGET": 0.10,
         "EMA_DISTANCE_THRESHOLD": 0.015,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
         "SL_ATR_MULTIPLIER": 1.5,
