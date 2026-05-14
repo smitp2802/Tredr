@@ -125,7 +125,8 @@ pf = vbt.Portfolio.from_signals(
     close=df['close'],
 
     entries=entries,
-    tp_stop=SETTINGS["TP_TARGET"],
+    tp_stop=None,
+    #tp_stop=SETTINGS["TP_TARGET"],
 
     sl_stop=sl_stop,
     sl_trail=True,
