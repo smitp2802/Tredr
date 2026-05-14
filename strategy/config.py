@@ -1,3 +1,5 @@
+import sys
+
 PAIR = "BTCUSDT"
 
 PAIR_CONFIGS = {
@@ -19,4 +21,10 @@ PAIR_CONFIGS = {
     }
 
 }
+
+PAIR = sys.argv[1]
+
+if PAIR not in PAIR_CONFIGS:
+    raise ValueError(f"No config found for {PAIR}")
+
 SETTINGS = PAIR_CONFIGS[PAIR]
