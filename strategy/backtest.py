@@ -3,12 +3,15 @@ import pandas as pd
 import vectorbt as vbt
 import sys
 
+from strategy.config import PAIR_CONFIGS
+
 PAIR = sys.argv[1]
 
 if PAIR not in PAIR_CONFIGS:
     raise ValueError(f"No config found for {PAIR}")
 
 SETTINGS = PAIR_CONFIGS[PAIR]
+
 from strategy.config import PAIR_CONFIGS
 from strategy.indicators import apply_indicators
 from strategy.signals import generate_signal
