@@ -119,7 +119,7 @@ def generate_signal(df):
     #______________________________
 
     volume_confirm = (
-        latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
+        latest['volume'] > latest['volume_ma'] * SETTINGS["VOLUME_MULTIPLIER"]
     )
 
     # Distance from EMA
@@ -133,7 +133,7 @@ def generate_signal(df):
     )
 
     not_overextended = (
-        distance_from_ema < ema_threshold
+        distance_from_ema < SETTINGS["EMA_DISTANCE_THRESHOLD"]
     )
     score_long = 0
     score_short = 0
@@ -227,7 +227,7 @@ def generate_signal(df):
     if True:
         # LONG ONLY FOR NOW
 
-        if score_long >= SCORE_THRESHOLD:
+        if score_long >= SETTINGS["SCORE_THRESHOLD"]:
             signal = "BUY"
 
         # Uncomment later if needed
