@@ -134,7 +134,7 @@ def generate_signal(df):
     )
 
     not_overextended = (
-        distance_from_ema < SETTINGS["SETTINGS["EMA_DISTANCE_THRESHOLD"]"]
+        distance_from_ema < SETTINGS["EMA_DISTANCE_THRESHOLD"]
     )
     score_long = 0
     score_short = 0
