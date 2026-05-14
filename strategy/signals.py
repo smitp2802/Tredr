@@ -67,13 +67,13 @@ def generate_signal(df):
     breakout_long = (
         latest['close'] > previous['ema20']
         and bullish_trend
-        and latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
+        and latest['volume'] > latest['volume_ma'] * SETTINGS["VOLUME_MULTIPLIER"]
     )
     
     breakout_short = (
         latest['close'] < previous['low']
         and bearish_trend
-        and latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
+        and latest['volume'] > latest['volume_ma'] * SETTINGS["VOLUME_MULTIPLIER"]
     )
 
     # ─────────────────────────────
@@ -120,7 +120,7 @@ def generate_signal(df):
     #______________________________
 
     volume_confirm = (
-        latest['volume'] > latest['volume_ma'] * SETTINGS["VOLUME_MULTIPLIER"]
+        latest['volume'] > latest['volume_ma'] * SETTINGS["SETTINGS["VOLUME_MULTIPLIER"]"]
     )
 
     # Distance from EMA
@@ -134,7 +134,7 @@ def generate_signal(df):
     )
 
     not_overextended = (
-        distance_from_ema < SETTINGS["EMA_DISTANCE_THRESHOLD"]
+        distance_from_ema < SETTINGS["SETTINGS["EMA_DISTANCE_THRESHOLD"]"]
     )
     score_long = 0
     score_short = 0
