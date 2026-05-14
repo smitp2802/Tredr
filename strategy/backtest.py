@@ -129,9 +129,9 @@ pf = vbt.Portfolio.from_signals(
 
     sl_stop=sl_stop,
     sl_trail=True,
-
-    fees=SLIPPAGE,
-    slippage=SLIPPAGE,
+    
+    fees=SETTINGS["FEES"],
+    slippage=SETTINGS["SLIPPAGE"],
 
     init_cash=10_000
 )
