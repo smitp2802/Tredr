@@ -14,7 +14,7 @@ PAIR_CONFIGS = {
         "SL_ATR_MULTIPLIER": 1.5,
         "FEES": 0.0005,
         "SLIPPAGE": 0.001,
-        "ADX_THRESHOLD": 20
+        "ADX_THRESHOLD": 25
     },
 
     "ETHUSDT": {
