@@ -131,6 +131,9 @@ def generate_signal(df):
     not_overextended = (
         distance_from_ema < ema_threshold
     )
+    score_long = 0
+    score_short = 0
+    
     if not not_overextended:
         return {
             "signal": "HOLD",
