@@ -130,7 +130,7 @@ def generate_signal(df):
 
     # Volatility-adjusted threshold
     ema_threshold = (
-        (latest['atr'] / latest['close']) * ATR_THRESHOLD_MULTIPLIER
+        (latest['atr'] / latest['close']) * SETTINGS["ATR_THRESHOLD_MULTIPLIER"]
     )
 
     not_overextended = (
