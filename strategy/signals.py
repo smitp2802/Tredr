@@ -120,7 +120,7 @@ def generate_signal(df):
     #______________________________
 
     volume_confirm = (
-        latest['volume'] > latest['volume_ma'] * SETTINGS["SETTINGS["VOLUME_MULTIPLIER"]"]
+        latest['volume'] > latest['volume_ma'] * SETTINGS["VOLUME_MULTIPLIER"]
     )
 
     # Distance from EMA
