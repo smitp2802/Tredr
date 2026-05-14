@@ -81,7 +81,7 @@ def generate_signal(df):
     # ─────────────────────────────
 
     momentum_long = (
-        latest['rsi'] > 50
+        latest['rsi'] > 55
     )
 
     momentum_short = (
