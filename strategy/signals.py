@@ -66,13 +66,13 @@ def generate_signal(df):
     breakout_long = (
         latest['close'] > previous['ema20']
         and bullish_trend
-        and latest['volume'] > latest['volume_ma'] * 1.5
+        and latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
     )
     
     breakout_short = (
         latest['close'] < previous['low']
         and bearish_trend
-        and latest['volume'] > latest['volume_ma'] * 1.5
+        and latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
     )
 
     # ─────────────────────────────
@@ -119,7 +119,7 @@ def generate_signal(df):
     #______________________________
 
     volume_confirm = (
-        latest['volume'] > latest['volume_ma'] * 1.5
+        latest['volume'] > latest['volume_ma'] * VOLUME_MULTIPLIER
     )
 
     # Distance from EMA
@@ -129,7 +129,7 @@ def generate_signal(df):
 
     # Volatility-adjusted threshold
     ema_threshold = (
-        (latest['atr'] / latest['close']) * 1.2
+        (latest['atr'] / latest['close']) * ATR_THRESHOLD_MULTIPLIER
     )
 
     not_overextended = (
@@ -227,7 +227,7 @@ def generate_signal(df):
     if True:
         # LONG ONLY FOR NOW
 
-        if score_long >= 8:
+        if score_long >= SCORE_THRESHOLD:
             signal = "BUY"
 
         # Uncomment later if needed
