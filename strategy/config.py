@@ -12,8 +12,8 @@ PAIR_CONFIGS = {
         "EMA_DISTANCE_THRESHOLD": 0.015,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
         "SL_ATR_MULTIPLIER": 1.5,
-        "FEES": 0.001,
-        "SLIPPAGE": 0.0005
+        "FEES": 0.0005,
+        "SLIPPAGE": 0.001
     },
 
     "ETHUSDT": {
@@ -24,8 +24,8 @@ PAIR_CONFIGS = {
         "EMA_DISTANCE_THRESHOLD": 0.02,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
         "SL_ATR_MULTIPLIER": 1.5,
-        "FEES": 0.001,
-        "SLIPPAGE": 0.0005
+        "FEES": 0.0005,
+        "SLIPPAGE": 0.001
     }
 
 }
