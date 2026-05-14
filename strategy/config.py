@@ -10,7 +10,8 @@ PAIR_CONFIGS = {
         "COOLDOWN_CANDLES": 24,
         "TP_TARGET": 0.06,
         "EMA_DISTANCE_THRESHOLD": 0.015,
-        "ATR_THRESHOLD_MULTIPLIER": 1.2
+        "ATR_THRESHOLD_MULTIPLIER": 1.2,
+        "SL_ATR_MULTIPLIER": 1.5
     },
 
     "ETHUSDT": {
@@ -19,7 +20,8 @@ PAIR_CONFIGS = {
         "COOLDOWN_CANDLES": 18,
         "TP_TARGET": 0.08,
         "EMA_DISTANCE_THRESHOLD": 0.02,
-        "ATR_THRESHOLD_MULTIPLIER": 1.2
+        "ATR_THRESHOLD_MULTIPLIER": 1.2,
+        "SL_ATR_MULTIPLIER": 1.5
     }
 
 }
