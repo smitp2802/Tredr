@@ -19,15 +19,15 @@ PAIR_CONFIGS = {
 
     "ETHUSDT": {
         "SCORE_THRESHOLD": 7,
-        "VOLUME_MULTIPLIER": 1.3,
-        "COOLDOWN_CANDLES": 18,
-        "TP_TARGET": 0.08,
-        "EMA_DISTANCE_THRESHOLD": 0.02,
+        "VOLUME_MULTIPLIER": 1.8,
+        "COOLDOWN_CANDLES": 48,
+        "TP_TARGET": None,
+        "EMA_DISTANCE_THRESHOLD": 0.01,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
-        "SL_ATR_MULTIPLIER": 1.5,
+        "SL_ATR_MULTIPLIER": 2.0,
         "FEES": 0.0005,
         "SLIPPAGE": 0.001,
-        "ADX_THRESHOLD":18
+        "ADX_THRESHOLD":30
     }
 
 }
