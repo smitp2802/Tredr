@@ -1,5 +1,5 @@
 from strategy.regimes import detect_regime
-from strategy.backtest import SETTINGS
+from strategy.config import SETTINGS
 
 def generate_signal(df):
 
