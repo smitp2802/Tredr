@@ -1,7 +1,15 @@
 import ccxt
 import pandas as pd
 import vectorbt as vbt
+import sys
 
+PAIR = sys.argv[1]
+
+if PAIR not in PAIR_CONFIGS:
+    raise ValueError(f"No config found for {PAIR}")
+
+SETTINGS = PAIR_CONFIGS[PAIR]
+from strategy.config import PAIR_CONFIGS
 from strategy.indicators import apply_indicators
 from strategy.signals import generate_signal
 from strategy.utils import clean_dataframe
@@ -13,8 +21,9 @@ def fetch_data():
 
     # 1H DATA
     bars_1h = exchange.fetch_ohlcv(
-        #'BTC/USDT',
-        'ETH/USDT',
+        
+        PAIR.replace("USDT", "/USDT"),
+        
         timeframe='1h',
         limit=10000
     )
