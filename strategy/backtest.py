@@ -100,7 +100,7 @@ last_trade_index = -12
 for i in range(200, len(df)):
 
     # Cooldown
-    if i - last_trade_index < SETTINGS["SETTINGS["COOLDOWN_CANDLES"]"]:
+    if i - last_trade_index < SETTINGS["COOLDOWN_CANDLES"]:
         continue
 
     temp_df = df.iloc[:i]
