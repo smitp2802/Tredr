@@ -65,13 +65,13 @@ def generate_signal(df):
     
     breakout_long = (
         latest['close'] > previous['ema20']
-        and bullish_candle
+        and bullish_trend
         and latest['volume'] > latest['volume_ma'] * 1.5
     )
     
     breakout_short = (
         latest['close'] < previous['low']
-        and bearish_candle
+        and bearish_trend
         and latest['volume'] > latest['volume_ma'] * 1.5
     )
 
