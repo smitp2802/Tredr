@@ -62,13 +62,17 @@ def generate_signal(df):
     pullback_ok = (
         latest['close'] < latest['ema20'] * 1.02
     )
-
+    
     breakout_long = (
         latest['close'] > previous['ema20']
+        and bullish_candle
+        and latest['volume'] > latest['volume_ma'] * 1.5
     )
-
+    
     breakout_short = (
         latest['close'] < previous['low']
+        and bearish_candle
+        and latest['volume'] > latest['volume_ma'] * 1.5
     )
 
     # ─────────────────────────────
