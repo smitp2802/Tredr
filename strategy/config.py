@@ -11,7 +11,7 @@ PAIR_CONFIGS = {
         "TP_TARGET": 0.10,
         "EMA_DISTANCE_THRESHOLD": 0.015,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
-        "SL_ATR_MULTIPLIER": 1.5,
+        "SL_ATR_MULTIPLIER": 2.0,
         "FEES": 0.0005,
         "SLIPPAGE": 0.001,
         "ADX_THRESHOLD": 25
