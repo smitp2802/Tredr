@@ -98,7 +98,7 @@ last_trade_index = -12
 for i in range(200, len(df)):
 
     # Cooldown
-    if i - last_trade_index < 24:
+    if i - last_trade_index < COOLDOWN_CANDLES:
         continue
 
     temp_df = df.iloc[:i]
@@ -115,7 +115,7 @@ for i in range(200, len(df)):
 entries = (
     signals == 'BUY'
 )
-sl_stop = (( df['atr'] * 1.5 ) / df['close'])
+sl_stop = (( df['atr'] * SL_ATR_MULTIPLIER ) / df['close'])
 tp_stop = ((df['atr'] * 6.0) / df['close'])
 
 pf = vbt.Portfolio.from_signals(
@@ -128,8 +128,8 @@ pf = vbt.Portfolio.from_signals(
     sl_stop=sl_stop,
     sl_trail=True,
 
-    fees=0.0005,
-    slippage=0.0005,
+    fees=SLIPPAGE,
+    slippage=SLIPPAGE,
 
     init_cash=10_000
 )
