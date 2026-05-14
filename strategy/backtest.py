@@ -98,7 +98,7 @@ last_trade_index = -12
 for i in range(200, len(df)):
 
     # Cooldown
-    if i - last_trade_index < COOLDOWN_CANDLES:
+    if i - last_trade_index < SETTINGS["COOLDOWN_CANDLES"]:
         continue
 
     temp_df = df.iloc[:i]
@@ -123,7 +123,7 @@ pf = vbt.Portfolio.from_signals(
     close=df['close'],
 
     entries=entries,
-    tp_stop=tp_stop,
+    tp_stop=SETTINGS["TP_TARGET"]
 
     sl_stop=sl_stop,
     sl_trail=True,
