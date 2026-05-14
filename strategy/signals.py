@@ -93,7 +93,7 @@ def generate_signal(df):
     # ─────────────────────────────
 
     strength = (
-        latest['adx'] > 18
+        latest['adx'] > 20
     )
 
     # ─────────────────────────────
