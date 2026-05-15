@@ -51,6 +51,7 @@ def fetch_data():
 
 
 def main():
+    in_position = False
 
     df = fetch_data()
 
@@ -63,6 +64,7 @@ def main():
     print(signal_data)
 
     log_trade(signal_data)
+    
     
     if signal_data['signal'] == "BUY" and not in_position:
         place_order(signal_data, PAIR)
