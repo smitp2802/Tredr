@@ -66,7 +66,7 @@ def main():
 
     if signal_data['signal'] != 'HOLD':
 
-        place_order(signal_data)
+        place_order(signal_data, PAIR)
 
 
 if __name__ == '__main__':
