@@ -21,7 +21,7 @@ def fetch_data():
 
     bars = exchange.fetch_ohlcv(
         PAIR,
-        timeframe=TIMEFRAME,,
+        timeframe=TIMEFRAME,
         limit=LOOKBACK
     )
 
