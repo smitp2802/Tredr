@@ -140,7 +140,7 @@ def generate_signal(df):
     score_short = 0
     
     #htf_Tend
-    htf_trend = latest['htf_bullish']
+    htf_trend = True
 
     # ─────────────────────────────
     # LONG SCORE
