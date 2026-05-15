@@ -1,5 +1,6 @@
 import ccxt
 import pandas as pd
+import sys
 
 from strategy.config import PAIR_CONFIGS
 PAIR = sys.argv[1]
