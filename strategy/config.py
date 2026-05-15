@@ -3,11 +3,9 @@ import sys
 PAIR = "BTCUSDT"
 TIMEFRAME = "1h"
 LOOKBACK = 500
+
 LIVE_TRADING = False
-if not LIVE_TRADING:
-    print("LIVE TRADING DISABLED")
-return
-    
+
 PAIR_CONFIGS = {
 
     "BTCUSDT": {
