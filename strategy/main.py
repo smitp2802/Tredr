@@ -1,6 +1,7 @@
 import ccxt
 import pandas as pd
 import sys
+import time
 
 from strategy.config import PAIR_CONFIGS
 PAIR = sys.argv[1]
@@ -15,7 +16,6 @@ from strategy.utils import clean_dataframe
 from strategy.config import TIMEFRAME, LOOKBACK
 
 exchange = ccxt.delta()
-in_position = False
 
 def fetch_data():
 
@@ -52,6 +52,9 @@ def fetch_data():
 
 def main():
     in_position = False
+    last_timestamp = None
+
+    while True:
 
     df = fetch_data()
 
@@ -61,17 +64,27 @@ def main():
 
     signal_data = generate_signal(df)
 
+    if signal_data['timestamp'] == last_timestamp:
+        time.sleep(60)
+        continue
+
+    last_timestamp = signal_data['timestamp']
+
     print(signal_data)
 
     log_trade(signal_data)
-    
-    
+
     if signal_data['signal'] == "BUY" and not in_position:
+
         place_order(signal_data, PAIR)
+
         in_position = True
-        
+
     elif signal_data['signal'] == "SELL":
+
         in_position = False
+
+    time.sleep(60)
 
 
 if __name__ == '__main__':
