@@ -29,9 +29,9 @@ def place_order(signal_data, pair):
     )
 
     with open("trade_log.txt", "a") as f:
-    f.write(
-        f"{signal_data['timestamp']} | "
-        f"{pair} | "
-        f"{signal_data['signal']} | "
-        f"{signal_data['price']}\n"
-    )
+        f.write(
+            f"{signal_data['timestamp']} | "
+            f"{pair} | "
+            f"{signal_data['signal']} | "
+            f"{signal_data['price']}\n"
+        )
