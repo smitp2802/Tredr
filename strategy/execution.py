@@ -1,4 +1,4 @@
-PAPER_TRADING = True
+PAPER_TRADING = False
 
 import ccxt
 import os
@@ -6,6 +6,19 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+exchange = ccxt.delta({
+    "apiKey": os.getenv("DELTA_API_KEY"),
+    "secret": os.getenv("DELTA_API_SECRET"),
+    "enableRateLimit": True
+})
+
+order = exchange.create_market_buy_order(
+    PAIR,
+    1 #Quantity
+)
+
+print(order)
 
 def place_order(signal_data, pair):
 
