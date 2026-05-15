@@ -243,5 +243,6 @@ def generate_signal(df):
         "score_short": score_short,
         "price": round(float(latest['close']), 2),
         "rsi": round(float(latest['rsi']), 2),
-        "adx": round(float(latest['adx']), 2)
+        "adx": round(float(latest['adx']), 2),
+        "timestamp": latest.name
     }
