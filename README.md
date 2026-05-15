@@ -1,115 +1,554 @@
-# Trading Rig 🚀
+# Tredr
 
-Crypto algo trading system using RSI + MACD strategy, feeding signals into n8n for AI validation and execution.
+Algorithmic crypto trading framework for:
 
-## Project Structure
+* Backtesting
+* Paper trading
+* Live execution on Delta Exchange
+* Multi-pair configuration
+* Regime-aware signal generation
 
-```
+---
+
+# Features
+
+## Current Features
+
+* BTC/ETH configurable strategies
+* VectorBT backtesting
+* Technical indicators
+* Regime detection
+* Signal scoring system
+* Paper trading loop
+* Delta Exchange integration
+* Logging system
+* Pair-specific configs
+* Duplicate candle protection
+* Risk management scaffolding
+
+---
+
+# Project Structure
+
+```text
 Tredr/
-├── strategy/
-│   ├── main.py          # Main loop — fetches data, generates signals, fires to n8n
-│   ├── indicators.py    # RSI, MACD, EMA, Bollinger Bands calculations
-│   └── signal.py        # Signal generation logic
+│
+├── data/
+│
 ├── logs/
-│   └── trading.log      # Auto-created on first run
+│
+├── models/
+│
+├── notebooks/
+│
+├── strategy/
+│   │
+│   ├── backtest.py
+│   ├── config.py
+│   ├── execution.py
+│   ├── indicators.py
+│   ├── journal.py
+│   ├── main.py
+│   ├── regimes.py
+│   ├── risk.py
+│   ├── signals.py
+│   └── utils.py
+│
+├── .env
+├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
-## Setup
+---
 
-### 1. Install dependencies
-```bash
-pip install -r requirements.txt
-```
+# File Responsibilities
 
-### 2. Create logs folder
-```bash
-mkdir logs
-```
+## `config.py`
 
-### 3. Set up n8n webhook
-- Open n8n at http://localhost:5678
-- Create a new workflow
-- Add a **Webhook** node as the trigger
-- Copy the webhook URL and paste it into `main.py` → `N8N_WEBHOOK`
+Stores:
 
-### 4. Configure your pairs
-Edit `main.py` and update the `PAIRS` list:
+* pair configs
+* timeframe
+* fees
+* slippage
+* thresholds
+* live trading toggle
+
+Example:
+
 ```python
-PAIRS = ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+LIVE_TRADING = False
 ```
 
-### 5. Run
+---
+
+## `backtest.py`
+
+Runs historical simulations using:
+
+* CCXT
+* Pandas
+* VectorBT
+
+Used for:
+
+* strategy optimization
+* testing indicators
+* evaluating performance
+
+Run:
+
 ```bash
-cd strategy
-python main.py
+python -m strategy.backtest BTCUSDT
 ```
 
 ---
 
-## How It Works
+## `main.py`
 
-1. Every 15 minutes, `main.py` fetches the last 250 candles from Binance (free, no API key needed)
-2. Calculates RSI, MACD, EMA50, EMA200, Bollinger Bands
-3. Applies signal logic:
-   - **BUY** → RSI < 35 + MACD bullish crossover + price above EMA50
-   - **SELL** → RSI > 65 + MACD bearish crossover + price below EMA50
-   - **HOLD** → everything else
-4. If confidence ≥ 70%, fires signal JSON to n8n webhook
-5. n8n passes it to AI agent for validation, then executes/logs/alerts
+Main trading engine loop.
+
+Responsibilities:
+
+* fetch candles
+* apply indicators
+* generate signals
+* log trades
+* place orders
+* avoid duplicate candles
+
+Run:
+
+```bash
+python -m strategy.main BTCUSDT
+```
 
 ---
 
-## Signal Payload (sent to n8n)
+## `signals.py`
 
-```json
+Core signal generation logic.
+
+Handles:
+
+* BUY / SELL / HOLD
+* score calculation
+* momentum checks
+* ADX filtering
+* regime filtering
+
+Returns:
+
+```python
 {
-  "pair": "BTCUSDT",
-  "action": "BUY",
-  "confidence": 80,
-  "price": 67000.0,
-  "timestamp": "2025-04-25T10:30:00",
-  "indicators": {
-    "rsi": 28.4,
-    "macd": 120.5,
-    "macd_signal": 95.2,
-    "macd_histogram": 25.3,
-    "ema50": 65800.0,
-    "ema200": 62000.0,
-    "bb_upper": 70000.0,
-    "bb_lower": 63000.0
-  },
-  "reasons": [
-    "RSI oversold at 28.4",
-    "MACD bullish crossover",
-    "Price above EMA50 (65800.0)",
-    "EMA50 above EMA200 (strong uptrend)"
-  ]
+    "signal": "BUY",
+    "score_long": 10,
+    "score_short": 3,
+    "price": 80413,
+    "rsi": 46,
+    "adx": 16
 }
 ```
 
 ---
 
-## n8n Workflow (what to build next)
+## `execution.py`
 
+Handles:
+
+* paper trading
+* live execution
+* Delta Exchange order placement
+
+Contains:
+
+```python
+LIVE_TRADING = False
 ```
-Webhook (receives signal)
-  → AI Agent node (Claude/GPT reviews signal + reasons)
-  → IF confidence still high
-      → HTTP node (execute trade via Binance API)
-      → Telegram node (send alert to yourself)
-      → Google Sheets node (log the trade)
+
+Safety layer before real execution.
+
+---
+
+## `indicators.py`
+
+Computes:
+
+* EMA
+* RSI
+* ATR
+* ADX
+* volume metrics
+* trend metrics
+
+---
+
+## `regimes.py`
+
+Detects market state.
+
+Examples:
+
+* TREND
+* RANGE
+* VOLATILE
+
+Used to adapt signal behavior.
+
+---
+
+## `risk.py`
+
+Position sizing and risk management.
+
+Future responsibilities:
+
+* leverage limits
+* max drawdown guard
+* dynamic sizing
+* kill switch
+
+---
+
+## `journal.py`
+
+Trade logging.
+
+Can log:
+
+* timestamp
+* pair
+* pnl
+* regime
+* indicators
+
+---
+
+## `utils.py`
+
+Helper functions.
+
+Examples:
+
+* dataframe cleaning
+* conversions
+* formatting
+
+---
+
+# Installation
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/smitp2802/Tredr.git
+
+cd Tredr
 ```
 
 ---
 
-## Next Steps
+## 2. Create Virtual Environment
 
-- [ ] Set up n8n webhook and AI agent node
-- [ ] Add Binance API key for live trading (testnet first!)
-- [ ] Add position sizing logic
-- [ ] Add stop-loss / take-profit logic
-- [ ] Backtest on historical data using `vectorbt`
-- [ ] Expand to NSE stocks (Zerodha Kite API)
-- [ ] Expand to Gold/Silver (OANDA API)
+Linux/macOS:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Windows:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Recommended packages:
+
+```text
+ccxt
+pandas
+numpy
+vectorbt
+python-dotenv
+plotly
+```
+
+---
+
+# Delta Exchange Setup
+
+## 1. Create API Keys
+
+Go to:
+
+[https://www.delta.exchange/app/account/manageapikeys](https://www.delta.exchange/app/account/manageapikeys)
+
+Enable:
+
+* Trading ✅
+
+Disable:
+
+* Withdrawals ❌
+
+---
+
+## 2. Create `.env`
+
+```env
+DELTA_API_KEY=your_api_key
+DELTA_API_SECRET=your_api_secret
+```
+
+---
+
+## 3. Add `.env` to `.gitignore`
+
+```text
+.env
+```
+
+---
+
+# Backtesting
+
+## BTC
+
+```bash
+python -m strategy.backtest BTCUSDT
+```
+
+## ETH
+
+```bash
+python -m strategy.backtest ETHUSDT
+```
+
+---
+
+# Paper Trading
+
+Keep:
+
+```python
+LIVE_TRADING = False
+```
+
+Run:
+
+```bash
+python -m strategy.main BTCUSDT
+```
+
+Expected output:
+
+```text
+Waiting for new candle...
+```
+
+or:
+
+```text
+[PAPER] BUY BTCUSDT
+```
+
+---
+
+# Live Trading
+
+⚠️ HIGH RISK
+
+Only enable after extensive paper testing.
+
+In `config.py`:
+
+```python
+LIVE_TRADING = True
+```
+
+Then run:
+
+```bash
+python -m strategy.main BTCUSDT
+```
+
+---
+
+# Multi-Pair Configuration
+
+Example:
+
+```python
+PAIR_CONFIGS = {
+    "BTCUSDT": {
+        "SCORE_THRESHOLD": 9,
+        "ADX_THRESHOLD": 25
+    },
+
+    "ETHUSDT": {
+        "SCORE_THRESHOLD": 7,
+        "ADX_THRESHOLD": 30
+    }
+}
+```
+
+Run specific pair:
+
+```bash
+python -m strategy.main BTCUSDT
+```
+
+or:
+
+```bash
+python -m strategy.main ETHUSDT
+```
+
+---
+
+# Current Trading Flow
+
+```text
+Fetch candles
+    ↓
+Apply indicators
+    ↓
+Detect regime
+    ↓
+Generate signal
+    ↓
+Risk validation
+    ↓
+Place order
+    ↓
+Log trade
+    ↓
+Wait for new candle
+```
+
+---
+
+# Recommended Future Improvements
+
+## Infrastructure
+
+* Docker deployment
+* VPS hosting
+* Redis state tracking
+* PostgreSQL logging
+* Web dashboard
+
+---
+
+## Trading Logic
+
+* Dynamic TP/SL
+* Trailing stop loss
+* Portfolio balancing
+* Volatility filters
+* Funding rate analysis
+* Multi-timeframe analysis
+
+---
+
+## AI/ML Ideas
+
+* Reinforcement learning
+* Market regime classification
+* Sentiment analysis
+* Feature engineering
+* Transformer-based forecasting
+
+---
+
+# Safety Notes
+
+## NEVER
+
+* hardcode API keys
+* enable withdrawals on API
+* start with large leverage
+* deploy without paper testing
+
+---
+
+## ALWAYS
+
+* use stop losses
+* monitor logs
+* start with tiny position sizes
+* keep backups of configs
+* validate exchange quantities
+
+---
+
+# Example Safe Position Sizing
+
+```python
+usd_size = 10
+quantity = usd_size / price
+```
+
+Avoid:
+
+```python
+quantity = 1
+```
+
+unless intentionally trading full contracts.
+
+---
+
+# Example Runtime
+
+```bash
+python -m strategy.main BTCUSDT
+```
+
+Output:
+
+```text
+Waiting for new candle...
+
+SIGNAL: BUY
+PAIR: BTCUSDT
+PRICE: 80413
+RSI: 46
+ADX: 16
+```
+
+---
+
+# Philosophy
+
+Tredr is designed as:
+
+```text
+research sandbox → paper trader → live execution engine
+```
+
+The goal is not just prediction.
+
+The goal is:
+
+* survivability
+* consistency
+* risk-adjusted execution
+* scalable architecture
+
+---
+
+# License
+
+MIT License
