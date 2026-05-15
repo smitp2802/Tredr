@@ -6,7 +6,7 @@ LOOKBACK = 500
 LIVE_TRADING = False
 if not LIVE_TRADING:
     print("LIVE TRADING DISABLED")
-    return
+return
     
 PAIR_CONFIGS = {
 
