@@ -1,14 +1,14 @@
 PAPER_TRADING = True
 
 
-def place_order(signal_data):
+def place_order(signal_data, pair):
 
     signal = signal_data['signal']
 
     if signal == "BUY":
 
         if PAPER_TRADING:
-            print(f"[PAPER] BUY {PAIR}")
+            print(f"[PAPER] BUY {pair}")
 
         else:
             exchange.create_market_buy_order(...)
