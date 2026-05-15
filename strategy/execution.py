@@ -2,8 +2,8 @@ PAPER_TRADING = False
 
 import ccxt
 import os
-from strategy.config import LIVE_TRADING
 from dotenv import load_dotenv
+from strategy.config import LIVE_TRADING
 
 load_dotenv()
 
@@ -13,12 +13,18 @@ exchange = ccxt.delta({
     "enableRateLimit": True
 })
 
-order = exchange.create_market_buy_order(
-    PAIR,
-    1 #Quantity
-)
 
-print(order)
+def place_order(signal_data, pair):
+
+    if not LIVE_TRADING:
+        print("LIVE TRADING DISABLED")
+        return
+
+    signal = signal_data['signal']
+
+    if signal == "BUY":
+        order = exchange.create_market_buy_order(pair, 1)
+        print(order)
 
 def place_order(signal_data, pair):
     if not LIVE_TRADING:
