@@ -13,6 +13,7 @@ def place_order(signal_data, pair):
         else:
             exchange.create_market_buy_order(...)
 
+
     print(
         f"""
         =========================
@@ -25,4 +26,12 @@ def place_order(signal_data, pair):
         TIME: {signal_data['timestamp']}
         =========================
         """
+    )
+
+    with open("trade_log.txt", "a") as f:
+    f.write(
+        f"{signal_data['timestamp']} | "
+        f"{pair} | "
+        f"{signal_data['signal']} | "
+        f"{signal_data['price']}\n"
     )
