@@ -17,7 +17,7 @@ def place_order(signal_data, pair):
         f"""
         =========================
         SIGNAL: {signal}
-        PAIR: {PAIR}
+        PAIR: {pair}
         PRICE: {signal_data['price']}
         SCORE LONG: {signal_data['score_long']}
         RSI: {signal_data['rsi']}
