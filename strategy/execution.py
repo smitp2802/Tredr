@@ -2,7 +2,7 @@ PAPER_TRADING = False
 
 import ccxt
 import os
-
+from strategy.config import LIVE_TRADING
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -21,6 +21,9 @@ order = exchange.create_market_buy_order(
 print(order)
 
 def place_order(signal_data, pair):
+    if not LIVE_TRADING:
+        print("LIVE TRADING DISABLED")
+    return
 
     signal = signal_data['signal']
 
