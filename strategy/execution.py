@@ -1,7 +1,28 @@
+PAPER_TRADING = True
+
+
 def place_order(signal_data):
 
     signal = signal_data['signal']
 
+    if signal == "BUY":
+
+        if PAPER_TRADING:
+            print(f"[PAPER] BUY {PAIR}")
+
+        else:
+            exchange.create_market_buy_order(...)
+
     print(
-        f'Executing order: {signal}'
+        f"""
+        =========================
+        SIGNAL: {signal}
+        PAIR: {PAIR}
+        PRICE: {signal_data['price']}
+        SCORE LONG: {signal_data['score_long']}
+        RSI: {signal_data['rsi']}
+        ADX: {signal_data['adx']}
+        TIME: {signal_data['timestamp']}
+        =========================
+        """
     )
