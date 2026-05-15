@@ -6,6 +6,7 @@ from strategy.config import SETTINGS, PAIR
 from strategy.indicators import apply_indicators
 from strategy.signals import generate_signal
 from strategy.utils import clean_dataframe
+from strategy.config import TIMEFRAME, LOOKBACK
 
 exchange = ccxt.delta()
 
