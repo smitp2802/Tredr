@@ -72,7 +72,7 @@ def main():
             continue
 
         last_timestamp = signal_data['timestamp']
-        print("Waiting for new candle...")
+        print(f"Waiting... Current candle: {last_timestamp}")
 
         print(signal_data)
 
