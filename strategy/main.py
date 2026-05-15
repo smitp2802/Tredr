@@ -1,11 +1,10 @@
 import ccxt
 import pandas as pd
 
-from strategy.config import (
-    PAIR,
-    TIMEFRAME,
-    LOOKBACK
-)
+from strategy.config import PAIR_CONFIGS
+PAIR = sys.argv[1]
+
+SETTINGS = PAIR_CONFIGS[PAIR]
 
 from strategy.indicators import apply_indicators
 from strategy.signals import generate_signal
@@ -20,7 +19,7 @@ def fetch_data():
 
     bars = exchange.fetch_ohlcv(
         PAIR,
-        timeframe=TIMEFRAME,
+        timeframe=SETTINGS["TIMEFRAME"],
         limit=LOOKBACK
     )
 
