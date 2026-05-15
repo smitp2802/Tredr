@@ -1,6 +1,8 @@
 import sys
 
 PAIR = "BTCUSDT"
+TIMEFRAME = "1h"
+LOOKBACK = 500
 
 PAIR_CONFIGS = {
 
