@@ -15,7 +15,7 @@ from strategy.utils import clean_dataframe
 from strategy.config import TIMEFRAME, LOOKBACK
 
 exchange = ccxt.delta()
-
+in_position = False
 
 def fetch_data():
 
@@ -63,10 +63,13 @@ def main():
     print(signal_data)
 
     log_trade(signal_data)
-
-    if signal_data['signal'] != 'HOLD':
-
+    
+    if signal_data['signal'] == "BUY" and not in_position:
         place_order(signal_data, PAIR)
+        in_position = True
+        
+    elif signal_data['signal'] == "SELL":
+        in_position = False
 
 
 if __name__ == '__main__':
