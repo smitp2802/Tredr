@@ -11,6 +11,7 @@ from strategy.signals import generate_signal
 from strategy.execution import place_order
 from strategy.journal import log_trade
 from strategy.utils import clean_dataframe
+from strategy.config import TIMEFRAME, LOOKBACK
 
 exchange = ccxt.delta()
 
