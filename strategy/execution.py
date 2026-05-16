@@ -23,7 +23,7 @@ def place_order(signal_data, pair):
     signal = signal_data['signal']
 
     if signal == "BUY":
-        order = exchange.create_market_buy_order(pair, 0.001)
+        order = exchange.create_market_buy_order(pair, 0.0001)
         print(order)
 
 def place_order(signal_data, pair):
