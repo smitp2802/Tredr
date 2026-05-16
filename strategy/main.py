@@ -64,6 +64,7 @@ def main():
         df = clean_dataframe(df)
 
         signal_data = generate_signal(df)
+        signal_data['signal'] = "BUY"
 
         if signal_data['timestamp'] == last_timestamp:
 
