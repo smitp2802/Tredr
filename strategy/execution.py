@@ -12,7 +12,7 @@ exchange = ccxt.delta({
     "secret": os.getenv("DELTA_API_SECRET"),
     "enableRateLimit": True
 })
-
+exchange.set_sandbox_mode(True)
 
 def place_order(signal_data, pair):
 
