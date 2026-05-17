@@ -35,8 +35,7 @@ def place_order(signal_data, pair):
             print("SENDING BUY ORDER TO DELTA")
 
             order = exchange.create_market_buy_order(
-                pair,
-                0.0001
+                pair, 1
             )
 
             print("ORDER SUCCESS")
