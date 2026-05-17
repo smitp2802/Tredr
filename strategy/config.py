@@ -36,7 +36,7 @@ PAIR_CONFIGS = {
 
 }
 
-PAIR = sys.argv[1]
+PAIR = sys.argv[1] if len(sys.argv) > 1 else "BTCUSDT"
 
 if PAIR not in PAIR_CONFIGS:
     raise ValueError(f"No config found for {PAIR}")
