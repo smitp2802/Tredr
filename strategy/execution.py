@@ -16,31 +16,38 @@ exchange = ccxt.delta({
 
 def place_order(signal_data, pair):
 
+    print("PLACE_ORDER FUNCTION CALLED")
+
+    print(f"LIVE_TRADING = {LIVE_TRADING}")
+
+    signal = signal_data['signal']
+
+    print(f"SIGNAL RECEIVED: {signal}")
+
     if not LIVE_TRADING:
         print("LIVE TRADING DISABLED")
         return
 
-    signal = signal_data['signal']
+    try:
 
-    if signal == "BUY":
-        order = exchange.create_market_buy_order(pair, 0.0001)
-        print(order)
+        if signal == "BUY":
 
-def place_order(signal_data, pair):
-    if not LIVE_TRADING:
-        print("LIVE TRADING DISABLED")
-    return
+            print("SENDING BUY ORDER TO DELTA")
 
-    signal = signal_data['signal']
+            order = exchange.create_market_buy_order(
+                pair,
+                0.0001
+            )
 
-    if signal == "BUY":
+            print("ORDER SUCCESS")
 
-        if PAPER_TRADING:
-            print(f"[PAPER] BUY {pair}")
+            print(order)
 
-        else:
-            exchange.create_market_buy_order(...)
+    except Exception as e:
 
+        print("ORDER FAILED")
+
+        print(e)
 
     print(
         f"""
