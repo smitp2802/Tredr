@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from strategy.config import LIVE_TRADING
 
 load_dotenv()
+print("API KEY =", os.getenv("DELTA_API_KEY"))
 
 exchange = ccxt.delta({
     "apiKey": os.getenv("DELTA_API_KEY"),
@@ -23,8 +24,6 @@ def place_order(signal_data, pair):
     signal = signal_data['signal']
 
     print(f"SIGNAL RECEIVED: {signal}")
-
-    print("API KEY =", os.getenv("DELTA_API_KEY"))
 
     if not LIVE_TRADING:
         print("LIVE TRADING DISABLED")
