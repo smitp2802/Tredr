@@ -24,6 +24,8 @@ def place_order(signal_data, pair):
 
     print(f"SIGNAL RECEIVED: {signal}")
 
+    print("API KEY =", os.getenv("DELTA_API_KEY"))
+
     if not LIVE_TRADING:
         print("LIVE TRADING DISABLED")
         return
