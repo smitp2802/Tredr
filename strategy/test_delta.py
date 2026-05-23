@@ -30,7 +30,7 @@ headers = {
     "signature": signature,
 }
 
-url = "https://testnet-api.delta.exchange" + path
+url = "url = "https://cdn-ind.testnet.deltaex.org/v2/wallet/balances"
 
 r = requests.get(url, headers=headers)
 
