@@ -34,11 +34,9 @@ exchange.urls["api"] = {
     "private": "https://cdn-ind.testnet.deltaex.org",
 }
 
-markets = exchange.load_markets()
+market = exchange.market("BTC/USD:USD")
 
-for symbol in markets:
-    if "BTC" in symbol:
-        print(symbol)
+print(market)
 print(exchange.fetch_balance())
 
 #print("\n===== CCXT URLS =====")
