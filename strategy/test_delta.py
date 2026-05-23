@@ -1,14 +1,38 @@
-import ccxt
+# strategy/test_delta.py
+
 import os
+import requests
+import time
+import hmac
+import hashlib
 from dotenv import load_dotenv
 
 load_dotenv()
 
-exchange = ccxt.delta({
-    "apiKey": os.getenv("DELTA_API_KEY"),
-    "secret": os.getenv("DELTA_API_SECRET"),
-})
+api_key = os.getenv("DELTA_API_KEY")
+api_secret = os.getenv("DELTA_API_SECRET")
 
-exchange.set_sandbox_mode(True)
+path = "/v2/wallet/balances"
+method = "GET"
+timestamp = str(int(time.time()))
 
-print(exchange.fetch_markets()[:3])
+message = method + timestamp + path
+
+signature = hmac.new(
+    api_secret.encode(),
+    message.encode(),
+    hashlib.sha256
+).hexdigest()
+
+headers = {
+    "api-key": api_key,
+    "timestamp": timestamp,
+    "signature": signature,
+}
+
+url = "https://testnet-api.delta.exchange" + path
+
+r = requests.get(url, headers=headers)
+
+print("STATUS:", r.status_code)
+print(r.text)
