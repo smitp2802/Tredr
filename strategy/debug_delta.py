@@ -64,3 +64,9 @@ try:
 except Exception as e:
     print(type(e))
     print(e)
+
+print("\n===== AVAILABLE PRIVATE METHODS =====")
+
+for method in dir(exchange):
+    if "private" in method.lower():
+        print(method)
