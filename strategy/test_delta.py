@@ -30,7 +30,7 @@ headers = {
     "signature": signature,
 }
 
-url = "url = "https://cdn-ind.testnet.deltaex.org/v2/wallet/balances"
+url = "https://cdn-ind.testnet.deltaex.org/v2/wallet/balances"
 
 r = requests.get(url, headers=headers)
 
