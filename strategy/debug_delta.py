@@ -21,6 +21,10 @@ exchange.set_sandbox_mode(True)
 print("\n===== CCXT URLS =====")
 print(exchange.urls["api"])
 
+print("\n===== KEY LENGTHS =====")
+print("KEY LEN =", len(os.getenv("DELTA_API_KEY")))
+print("SECRET LEN =", len(os.getenv("DELTA_API_SECRET")))
+
 print("\n===== PUBLIC TEST =====")
 try:
     markets = exchange.fetch_markets()
