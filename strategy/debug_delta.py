@@ -35,11 +35,10 @@ exchange.urls["api"] = {
 }
 
 markets = exchange.load_markets()
-print("Markets:", len(markets))
 
-ticker = exchange.fetch_ticker("BTC/USD")
-print(ticker)
-
+for symbol in markets:
+    if "BTC" in symbol:
+        print(symbol)
 print(exchange.fetch_balance())
 
 #print("\n===== CCXT URLS =====")
