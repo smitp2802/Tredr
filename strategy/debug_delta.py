@@ -54,3 +54,13 @@ try:
 except Exception as e:
     print("FAILED")
     print(e)
+
+print("\n===== ACCOUNT TEST =====")
+
+try:
+    response = exchange.privateGetUsersMe()
+    print(response)
+
+except Exception as e:
+    print(type(e))
+    print(e)
