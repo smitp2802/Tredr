@@ -19,7 +19,7 @@ exchange = ccxt.delta({
 exchange.set_sandbox_mode(True)
 
 print(exchange.fetch_currencies())
-print(exchnage.fetch_balance())
+print(exchange.fetch_balance())
 
 #print("\n===== CCXT URLS =====")
 #print(exchange.urls["api"])
