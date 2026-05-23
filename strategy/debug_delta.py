@@ -18,55 +18,57 @@ exchange = ccxt.delta({
 
 exchange.set_sandbox_mode(True)
 
-print("\n===== CCXT URLS =====")
-print(exchange.urls["api"])
+exchange.fetch_currencies()
 
-print("\n===== KEY LENGTHS =====")
-print("KEY LEN =", len(os.getenv("DELTA_API_KEY")))
-print("SECRET LEN =", len(os.getenv("DELTA_API_SECRET")))
+#print("\n===== CCXT URLS =====")
+#print(exchange.urls["api"])
 
-print("\n===== PUBLIC TEST =====")
-try:
-    markets = exchange.fetch_markets()
-    print("SUCCESS")
-    print("Markets Loaded:", len(markets))
-except Exception as e:
-    print("FAILED")
-    print(type(e))
-    print(e)
+#print("\n===== KEY LENGTHS =====")
+#print("KEY LEN =", len(os.getenv("DELTA_API_KEY")))
+#print("SECRET LEN =", len(os.getenv("DELTA_API_SECRET")))
 
-print("\n===== PRIVATE TEST =====")
-try:
-    balance = exchange.fetch_balance()
-    print("SUCCESS")
-    print(balance)
-except Exception as e:
-    print("FAILED")
-    print(type(e))
-    print(e)
+#print("\n===== PUBLIC TEST =====")
+#try:
+#    markets = exchange.fetch_markets()
+#    print("SUCCESS")
+#    print("Markets Loaded:", len(markets))
+#except Exception as e:
+#    print("FAILED")
+#     print(type(e))
+#    print(e)
 
-print("\n===== RAW TESTNET CHECK =====")
-try:
-    r = requests.get(
-        "https://testnet-api.delta.exchange/v2/products"
-    )
-    print("STATUS =", r.status_code)
-except Exception as e:
-    print("FAILED")
-    print(e)
+#print("\n===== PRIVATE TEST =====")
+#try:
+#    balance = exchange.fetch_balance()
+#    print("SUCCESS")
+#    print(balance)
+#except Exception as e:
+#    print("FAILED")
+#    print(type(e))
+#    print(e)
 
-print("\n===== ACCOUNT TEST =====")
+#print("\n===== RAW TESTNET CHECK =====")
+#try:
+#    r = requests.get(
+#        "https://testnet-api.delta.exchange/v2/products"
+#    )
+#    print("STATUS =", r.status_code)
+#except Exception as e:
+#    print("FAILED")
+#    print(e)
 
-try:
-    response = exchange.privateGetUsersMe()
-    print(response)
+#print("\n===== ACCOUNT TEST =====")
 
-except Exception as e:
-    print(type(e))
-    print(e)
+#try:
+#    response = exchange.privateGetUsersMe()
+#    print(response)
 
-print("\n===== AVAILABLE PRIVATE METHODS =====")
+#except Exception as e:
+#    print(type(e))
+#    print(e)
 
-for method in dir(exchange):
-    if "private" in method.lower():
-        print(method)
+#print("\n===== AVAILABLE PRIVATE METHODS =====")
+
+#for method in dir(exchange):
+#    if "private" in method.lower():
+#        print(method)
