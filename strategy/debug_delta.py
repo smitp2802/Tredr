@@ -21,6 +21,21 @@ exchange.set_sandbox_mode(True)
 print(exchange.apiKey)
 print(len(exchange.secret))
 
+exchange = ccxt.delta({
+    "apiKey": os.getenv("DELTA_API_KEY"),
+    "secret": os.getenv("DELTA_API_SECRET"),
+})
+
+exchange.set_sandbox_mode(True)
+
+# Add this here
+exchange.urls["api"] = {
+    "public": "https://cdn-ind.testnet.deltaex.org",
+    "private": "https://cdn-ind.testnet.deltaex.org",
+}
+
+print(exchange.fetch_balance())
+
 #print("\n===== CCXT URLS =====")
 #print(exchange.urls["api"])
 
