@@ -34,5 +34,7 @@ url = "https://cdn-ind.testnet.deltaex.org/v2/wallet/balances"
 
 r = requests.get(url, headers=headers)
 
+balance = exchange.fetch_balance()
+print(balance)
 print("STATUS:", r.status_code)
 print(r.text)
