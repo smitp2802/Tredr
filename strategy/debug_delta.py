@@ -33,7 +33,7 @@ exchange.urls["api"] = {
     "public": "https://cdn-ind.testnet.deltaex.org",
     "private": "https://cdn-ind.testnet.deltaex.org",
 }
-
+markets = exchange.load_markets()
 market = exchange.market("BTC/USD:USD")
 
 print(market)
