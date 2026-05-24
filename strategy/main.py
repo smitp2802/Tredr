@@ -74,9 +74,7 @@ def fetch_data():
     return df
 
 exchange.load_markets()
-
 print("TOTAL SYMBOLS:", len(exchange.symbols))
-
 for s in exchange.symbols[:20]:
     if "BTC" in s:
         print(s)
