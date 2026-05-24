@@ -138,9 +138,11 @@ def generate_signal(df):
     )
     score_long = 0
     score_short = 0
-    
+
+    # -----------------
     #htf_Tend
-    htf_trend = True
+    # -----------------
+    htf_trend = higher_tf_trend
 
     # ─────────────────────────────
     # LONG SCORE
@@ -183,6 +185,9 @@ def generate_signal(df):
 
     if htf_trend:
         score_long += 1
+        
+    if pullback_ok:
+        score_long += 1
 
     # ─────────────────────────────
     # SHORT SCORE
@@ -216,15 +221,12 @@ def generate_signal(df):
 
     if bearish_candle:
         score_short += 1
-        
-    if pullback_ok:
-        score_long += 1
 
     # ─────────────────────────────
     # Final Signal
     # ─────────────────────────────
 
-    #if regime == "TREND":
+    if regime == "TREND":
     if True:
         # LONG ONLY FOR NOW
 
