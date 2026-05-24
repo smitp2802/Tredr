@@ -4,6 +4,7 @@ import ccxt
 import os
 from dotenv import load_dotenv
 from strategy.config import LIVE_TRADING
+from strategy.config import SETTINGS
 
 load_dotenv()
 print("API KEY =", os.getenv("DELTA_API_KEY"))
@@ -20,6 +21,15 @@ exchange.urls["api"] = {
 }
 
 exchange.load_markets()
+
+market = exchange.market(pair)
+
+balance = exchange.fetch_balance()
+usd_balance = balance["total"]["USD"]
+risk_per_trade = usd_balance * 0.02
+print("Risk: ",risk_per_trade)
+print("Contract Size:", market["contractSize"])
+print("Min Amount:", market["limits"]["amount"]["min"])
 
 try:
     balance = exchange.fetch_balance()
