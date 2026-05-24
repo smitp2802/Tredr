@@ -24,10 +24,6 @@ exchange.load_markets()
 
 market = exchange.market(pair)
 
-balance = exchange.fetch_balance()
-usd_balance = balance["total"]["USD"]
-risk_per_trade = usd_balance * 0.02
-print("Risk: ",risk_per_trade)
 print("Contract Size:", market["contractSize"])
 print("Min Amount:", market["limits"]["amount"]["min"])
 
@@ -46,6 +42,10 @@ except Exception as e:
 def place_order(signal_data, pair):
 
     print("PLACE_ORDER FUNCTION CALLED")
+
+    balance = exchange.fetch_balance()
+    usd_balance = balance["total"].get("USD", 0)
+    risk_amount = usd_balance * SETTINGS["RISK_PER_TRADE"]
 
     print(f"LIVE_TRADING = {LIVE_TRADING}")
 
