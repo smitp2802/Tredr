@@ -18,6 +18,8 @@ PAIR_CONFIGS = {
         "SL_ATR_MULTIPLIER": 2.0,
         "FEES": 0.0005,
         "SLIPPAGE": 0.001,
+        "RISK_PER_TRADE": 0.02,   # 2%
+        "SL_ATR_MULTIPLIER": 2.0,
         "ADX_THRESHOLD": 25
     },
 
