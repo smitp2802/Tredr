@@ -14,7 +14,25 @@ exchange = ccxt.delta({
     "enableRateLimit": True
 })
 exchange.set_sandbox_mode(True)
+exchange.urls["api"] = {
+    "public": "https://cdn-ind.testnet.deltaex.org",
+    "private": "https://cdn-ind.testnet.deltaex.org",
+}
 
+exchange.load_markets()
+
+try:
+    balance = exchange.fetch_balance()
+
+    print(
+        "USD Balance:",
+        balance["total"].get("USD", 0)
+    )
+
+except Exception as e:
+    print("Balance check failed")
+    print(e)
+    
 def place_order(signal_data, pair):
 
     print("PLACE_ORDER FUNCTION CALLED")
