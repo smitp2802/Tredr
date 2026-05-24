@@ -1,6 +1,6 @@
 import sys
 
-PAIR = "BTCUSDT"
+PAIR = "BTC/USD:USD"
 TIMEFRAME = "1h"
 LOOKBACK = 500
 
