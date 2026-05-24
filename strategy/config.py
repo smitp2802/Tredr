@@ -4,11 +4,11 @@ PAIR = "BTCUSDT"
 TIMEFRAME = "1h"
 LOOKBACK = 500
 
-LIVE_TRADING = True
+LIVE_TRADING = False
 
 PAIR_CONFIGS = {
 
-    "BTCUSDT": {
+    "BTC/USD:USD": {
         "SCORE_THRESHOLD": 9,
         "VOLUME_MULTIPLIER": 1.5,
         "COOLDOWN_CANDLES": 36,
@@ -36,7 +36,7 @@ PAIR_CONFIGS = {
 
 }
 
-PAIR = sys.argv[1] if len(sys.argv) > 1 else "BTCUSDT"
+PAIR = sys.argv[1] if len(sys.argv) > 1 else "BTC/USD:USD"
 
 if PAIR not in PAIR_CONFIGS:
     raise ValueError(f"No config found for {PAIR}")
