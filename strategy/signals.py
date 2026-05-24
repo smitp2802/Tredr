@@ -230,7 +230,7 @@ def generate_signal(df):
         if True:
         # LONG ONLY FOR NOW
             if score_long >= SETTINGS["SCORE_THRESHOLD"]:
-            signal = "BUY"
+                signal = "BUY"
 
         # Uncomment later if needed
 
