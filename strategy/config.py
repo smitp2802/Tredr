@@ -21,7 +21,7 @@ PAIR_CONFIGS = {
         "ADX_THRESHOLD": 25
     },
 
-    "ETHUSDT": {
+    "ETH/USD:USD": {
         "SCORE_THRESHOLD": 7,
         "VOLUME_MULTIPLIER": 1.8,
         "COOLDOWN_CANDLES": 48,
