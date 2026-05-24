@@ -22,8 +22,6 @@ exchange.urls["api"] = {
 
 exchange.load_markets()
 
-print("Min Amount:", market["limits"]["amount"]["min"])
-
 try:
     balance = exchange.fetch_balance()
 
