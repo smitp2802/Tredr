@@ -41,7 +41,6 @@ except Exception as e:
 def place_order(signal_data, pair):
     
     market = exchange.market(pair)
-    print("Contract Size:", market["contractSize"])
     print("PLACE_ORDER FUNCTION CALLED")
 
     balance = exchange.fetch_balance()
