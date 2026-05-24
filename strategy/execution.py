@@ -22,7 +22,6 @@ exchange.urls["api"] = {
 
 exchange.load_markets()
 
-market = exchange.market(pair)
 
 print("Contract Size:", market["contractSize"])
 print("Min Amount:", market["limits"]["amount"]["min"])
@@ -40,6 +39,7 @@ except Exception as e:
     print(e)
     
 def place_order(signal_data, pair):
+    market = exchange.market(pair)
 
     print("PLACE_ORDER FUNCTION CALLED")
 
