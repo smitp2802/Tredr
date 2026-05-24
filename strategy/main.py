@@ -73,17 +73,17 @@ def fetch_data():
 
     return df
 
-try:
-
-    exchange.load_markets()
-
-    if PAIR not in exchange.symbols:
-
-        print(f"PAIR NOT FOUND: {PAIR}")
-
-        sys.exit(1)
-
-    print(f"PAIR VERIFIED: {PAIR}")
+#try:
+#
+#    exchange.load_markets()
+#
+#    if PAIR not in exchange.symbols:
+#
+#        print(f"PAIR NOT FOUND: {PAIR}")
+#
+#        sys.exit(1)
+#
+#    print(f"PAIR VERIFIED: {PAIR}")
 
 except Exception as e:
 
