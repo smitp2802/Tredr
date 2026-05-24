@@ -85,13 +85,13 @@ def fetch_data():
 #
 #    print(f"PAIR VERIFIED: {PAIR}")
 
-except Exception as e:
+#except Exception as e:
 
-    print("MARKET CHECK FAILED")
+#    print("MARKET CHECK FAILED")
 
-    print(e)
+#    print(e)
 
-    sys.exit(1)
+#    sys.exit(1)
     
 
 def main():
