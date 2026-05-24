@@ -1,93 +1,91 @@
-# strategy/debug_delta.py
-
 import os
 import ccxt
-import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
-print("\n===== ENVIRONMENT =====")
-print("KEY =", os.getenv("DELTA_API_KEY"))
-print("SECRET EXISTS =", bool(os.getenv("DELTA_API_SECRET")))
+print("\n========== DELTA TEST ==========")
+
+# 1. ENV
+api_key = os.getenv("DELTA_API_KEY")
+api_secret = os.getenv("DELTA_API_SECRET")
+
+print("\n[1] ENVIRONMENT")
+
+if api_key:
+    print("✅ API KEY FOUND")
+    print("KEY:", api_key[:8] + "...")
+else:
+    print("❌ API KEY MISSING")
+
+if api_secret:
+    print("✅ API SECRET FOUND")
+else:
+    print("❌ API SECRET MISSING")
+
+# 2. EXCHANGE
+print("\n[2] CONNECTING")
 
 exchange = ccxt.delta({
-    "apiKey": os.getenv("DELTA_API_KEY"),
-    "secret": os.getenv("DELTA_API_SECRET"),
+    "apiKey": api_key,
+    "secret": api_secret,
 })
 
 exchange.set_sandbox_mode(True)
 
-print(exchange.apiKey)
-print(len(exchange.secret))
-
-exchange = ccxt.delta({
-    "apiKey": os.getenv("DELTA_API_KEY"),
-    "secret": os.getenv("DELTA_API_SECRET"),
-})
-
-exchange.set_sandbox_mode(True)
-
-# Add this here
 exchange.urls["api"] = {
     "public": "https://cdn-ind.testnet.deltaex.org",
     "private": "https://cdn-ind.testnet.deltaex.org",
 }
-markets = exchange.load_markets()
-market = exchange.market("BTC/USD:USD")
 
-print(market)
-print(exchange.fetch_balance())
+# 3. MARKETS
+print("\n[3] LOADING MARKETS")
 
-#print("\n===== CCXT URLS =====")
-#print(exchange.urls["api"])
+try:
+    markets = exchange.load_markets()
+    print("✅ Markets Loaded:", len(markets))
+except Exception as e:
+    print("❌ Market Load Failed")
+    print(e)
+    raise
 
-#print("\n===== KEY LENGTHS =====")
-#print("KEY LEN =", len(os.getenv("DELTA_API_KEY")))
-#print("SECRET LEN =", len(os.getenv("DELTA_API_SECRET")))
+# 4. MARKET SYMBOL
+print("\n[4] BTC CONTRACT")
 
-#print("\n===== PUBLIC TEST =====")
-#try:
-#    markets = exchange.fetch_markets()
-#    print("SUCCESS")
-#    print("Markets Loaded:", len(markets))
-#except Exception as e:
-#    print("FAILED")
-#     print(type(e))
-#    print(e)
+try:
+    market = exchange.market("BTC/USD:USD")
+    print("✅ Symbol Found")
+    print("CCXT Symbol:", market["symbol"])
+except Exception as e:
+    print("❌ Symbol Missing")
+    print(e)
 
-#print("\n===== PRIVATE TEST =====")
-#try:
-#    balance = exchange.fetch_balance()
-#    print("SUCCESS")
-#    print(balance)
-#except Exception as e:
-#    print("FAILED")
-#    print(type(e))
-#    print(e)
+# 5. BALANCE
+print("\n[5] BALANCE TEST")
 
-#print("\n===== RAW TESTNET CHECK =====")
-#try:
-#    r = requests.get(
-#        "https://testnet-api.delta.exchange/v2/products"
-#    )
-#    print("STATUS =", r.status_code)
-#except Exception as e:
-#    print("FAILED")
-#    print(e)
+try:
+    balance = exchange.fetch_balance()
 
-#print("\n===== ACCOUNT TEST =====")
+    usd = balance["total"].get("USD", 0)
 
-#try:
-#    response = exchange.privateGetUsersMe()
-#    print(response)
+    print("✅ Auth Success")
+    print("USD Balance:", usd)
 
-#except Exception as e:
-#    print(type(e))
-#    print(e)
+except Exception as e:
+    print("❌ Authentication Failed")
+    print(e)
 
-#print("\n===== AVAILABLE PRIVATE METHODS =====")
+# 6. TICKER
+print("\n[6] TICKER TEST")
 
-#for method in dir(exchange):
-#    if "private" in method.lower():
-#        print(method)
+try:
+    ticker = exchange.fetch_ticker("BTC/USD:USD")
+
+    print("✅ Market Data Working")
+    print("Last Price:", ticker["last"])
+
+except Exception as e:
+    print("❌ Ticker Failed")
+    print(e)
+
+print("\n========== DONE ==========")
