@@ -79,6 +79,8 @@ for s in exchange.symbols[:20]:
     if "BTC" in s:
         print(s)
 
+print(exchange.urls)
+
 #try:
 #
 #    exchange.load_markets()
