@@ -22,8 +22,6 @@ exchange.urls["api"] = {
 
 exchange.load_markets()
 
-
-print("Contract Size:", market["contractSize"])
 print("Min Amount:", market["limits"]["amount"]["min"])
 
 try:
