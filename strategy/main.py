@@ -2,8 +2,11 @@ import ccxt
 import pandas as pd
 import sys
 import time
-
-from strategy.config import PAIR_CONFIGS
+from strategy.config import (
+    PAIR_CONFIGS,
+    TIMEFRAME,
+    LOOKBACK
+)
 PAIR = sys.argv[1]
 
 SETTINGS = PAIR_CONFIGS[PAIR]
