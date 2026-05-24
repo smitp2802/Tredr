@@ -56,10 +56,6 @@ exchange.urls["api"] = {
 }
 
 markets = exchange.load_markets()
-
-print(exchange.urls)
-print(exchange.market("BTC/USD:USD"))
-
 def fetch_data():
 
     bars = exchange.fetch_ohlcv(
