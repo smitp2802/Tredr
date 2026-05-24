@@ -39,7 +39,26 @@ from strategy.journal import log_trade
 from strategy.utils import clean_dataframe
 from strategy.config import TIMEFRAME, LOOKBACK
 
-exchange = ccxt.delta()
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+exchange = ccxt.delta({
+    "apiKey": os.getenv("DELTA_API_KEY"),
+    "secret": os.getenv("DELTA_API_SECRET"),
+    "enableRateLimit": True
+})
+
+exchange.urls["api"] = {
+    "public": "https://cdn-ind.testnet.deltaex.org",
+    "private": "https://cdn-ind.testnet.deltaex.org",
+}
+
+markets = exchange.load_markets()
+
+print(exchange.urls)
+print(exchange.market("BTC/USD:USD"))
 
 def fetch_data():
 
