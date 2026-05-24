@@ -13,7 +13,7 @@ exchange = ccxt.delta({
     "secret": os.getenv("DELTA_API_SECRET"),
     "enableRateLimit": True
 })
-exchange.set_sandbox_mode(True)
+
 exchange.urls["api"] = {
     "public": "https://cdn-ind.testnet.deltaex.org",
     "private": "https://cdn-ind.testnet.deltaex.org",
