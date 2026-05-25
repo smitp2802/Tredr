@@ -248,3 +248,18 @@ def generate_signal(df):
         "atr": round(float(latest['atr']), 2),
         "timestamp": latest.name
     }
+
+    reasons = []
+    if ema_bullish:
+        score_long += 2
+        reasons.append("EMA Trend +2")
+        
+    if rsi_bullish:
+        score_long += 1
+        reasons.append("RSI +1")
+        
+    if volume_spike:
+        score_long += 2
+        reasons.append("Volume +2")
+    
+    print(reasons)
