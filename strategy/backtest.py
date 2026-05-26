@@ -15,12 +15,9 @@ def fetch_data():
 
     # 1H DATA
     bars_1h = exchange.fetch_ohlcv(
-        
-        PAIR.replace("USDT", "/USDT"),
-        
-        timeframe='1h',
-        limit=10000
+        "BTC/USD:USD"
     )
+    print("Backtesting pair:", PAIR)
 
     df_1h = pd.DataFrame( 
         bars_1h, columns=['timestamp','open','high','low','close','volume']
@@ -38,7 +35,7 @@ def fetch_data():
 
     # 4H DATA
     bars_4h = exchange.fetch_ohlcv(
-        'BTC/USDT',
+        PAIR,
         timeframe='4h',
         limit=3000
     )
