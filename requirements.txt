@@ -6,3 +6,4 @@ vectorbt>=0.26.0
 python-dotenv>=1.0.0
 ta>=0.11.0
 ccxt 
+telethon
