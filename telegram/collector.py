@@ -28,17 +28,14 @@ async def main():
         CHANNEL,
         limit=None
     ):
-        if message.photo:
-            photos += 1
+        if not message.photo:
+            continue
+            
+        path = await message.download_media(
+            file="telegram/images/"
+        )
         
-        if message.media:
-            media += 1
-
-         #   path = await message.download_media(
-          #      file="telegram/images/"
-          #  )
-    print("Photos:", photos)
-    print("Media:", media)
+        print(f"Downloaded: {path}")
 
 #            print(
 #                f"Downloaded: {path}"
