@@ -37,18 +37,17 @@ async def main():
             path = await message.download_media(
                 file="telegram/images/"
             )
-    print("Photos:", photos)
-    print("Media:", media)
+#    print("Photos:", photos)
+#    print("Media:", media)
 
-            print(
-                f"Downloaded: {path}"
-            )
+#            print(
+#                f"Downloaded: {path}"
+            #)
+#            count += 1
 
-            count += 1
-
-    print(
-        f"Total images: {count}"
-    )
+ #   print(
+  #      f"Total images: {count}"
+   # )
 
 with client:
     client.loop.run_until_complete(
