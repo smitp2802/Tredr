@@ -43,3 +43,15 @@ Thumbs.db
 .ipynb_checkpoints/
 *.ipynb
 .env
+
+# Telegram datasets
+telegram/images/
+
+# Telegram session
+*.session
+
+# Databases
+*.db
+
+# Exports
+telegram/exports/
