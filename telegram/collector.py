@@ -21,17 +21,24 @@ async def main():
     )
 
     count = 0
+    photos = 0
+    media = 0
 
     async for message in client.iter_messages(
         CHANNEL,
-        limit=500
+        limit=None
     ):
-
         if message.photo:
+            photos += 1
+        
+        if message.media:
+            media += 1
 
             path = await message.download_media(
                 file="telegram/images/"
             )
+    print("Photos:", photos)
+    print("Media:", media)
 
             print(
                 f"Downloaded: {path}"
