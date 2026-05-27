@@ -34,11 +34,11 @@ async def main():
         if message.media:
             media += 1
 
-            path = await message.download_media(
-                file="telegram/images/"
-            )
-#    print("Photos:", photos)
-#    print("Media:", media)
+         #   path = await message.download_media(
+          #      file="telegram/images/"
+          #  )
+    print("Photos:", photos)
+    print("Media:", media)
 
 #            print(
 #                f"Downloaded: {path}"
