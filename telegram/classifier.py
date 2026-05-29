@@ -2,7 +2,7 @@ import os
 import shutil
 import easyocr
 
-RAW_DIR = "telegram/images/raw"
+RAW_DIR = "telegram/images/"
 
 BTC_DIR = "telegram/images/btcusd"
 XAU_DIR = "telegram/images/xauusd"
@@ -23,6 +23,9 @@ XAU_WORDS = [
     "XAUUSD",
     "GOLD"
 ]
+
+print("RAW_DIR =", RAW_DIR)
+print("Files found =", len(os.listdir(RAW_DIR)))
 
 for filename in os.listdir(RAW_DIR):
 
