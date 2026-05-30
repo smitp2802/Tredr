@@ -1,34 +1,17 @@
-from datetime import datetime
 import csv
 import os
 
+FILE = "trades.csv"
+
 def log_trade(signal_data):
 
-    now = datetime.now()
+    file_exists = os.path.isfile(FILE)
 
-    print(
-        f"[{now}] {signal_data}"
-    )
-
-    file_exists = os.path.isfile(
-        "logs/trades.csv"
-    )
-
-    os.makedirs(
-        "logs",
-        exist_ok=True
-    )
-
-    with open(
-        "logs/trades.csv",
-        "a",
-        newline=""
-    ) as f:
+    with open(FILE, "a", newline="") as f:
 
         writer = csv.writer(f)
 
         if not file_exists:
-
             writer.writerow([
                 "timestamp",
                 "signal",
@@ -36,7 +19,8 @@ def log_trade(signal_data):
                 "score_long",
                 "score_short",
                 "rsi",
-                "adx"
+                "adx",
+                "atr"
             ])
 
         writer.writerow([
@@ -46,5 +30,6 @@ def log_trade(signal_data):
             signal_data["score_long"],
             signal_data["score_short"],
             signal_data["rsi"],
-            signal_data["adx"]
+            signal_data["adx"],
+            signal_data["atr"]
         ])
