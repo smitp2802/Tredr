@@ -238,7 +238,6 @@ def generate_signal(df):
         #     signal = "SELL"
     
     print("\n===== SCORE BREAKDOWN =====")
-    print("EMA Trend:", ema_trend)
     print("EMA Alignment:", ema_alignment)
     print("RSI Long:", rsi_long)
     print("ADX Strong:", adx_strong)
