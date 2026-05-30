@@ -44,12 +44,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-exchange = ccxt.delta({
-    "apiKey": os.getenv("DELTA_API_KEY"),
-    "secret": os.getenv("DELTA_API_SECRET"),
-    "enableRateLimit": True
-})
-
 exchange.urls["api"] = {
     "public": "https://cdn-ind.testnet.deltaex.org",
     "private": "https://cdn-ind.testnet.deltaex.org",
