@@ -236,6 +236,17 @@ def generate_signal(df):
 
         # elif score_short >= 7:
         #     signal = "SELL"
+    
+    print("\n===== SCORE BREAKDOWN =====")
+    print("EMA Trend:", ema_trend)
+    print("EMA Alignment:", ema_alignment)
+    print("RSI Long:", rsi_long)
+    print("ADX Strong:", adx_strong)
+    print("Volume Strong:", volume_strong)
+    print("Bullish Candle:", bullish_candle)
+    print("LONG SCORE:", score_long)
+    print("SHORT SCORE:", score_short)
+    print("===========================\n")
 
     return {
         "signal": signal,
