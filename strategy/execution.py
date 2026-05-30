@@ -36,22 +36,6 @@ except Exception as e:
     print("Balance check failed")
     print(e)
 
-print("\n===== POSITION SIZE =====")
-
-print("Balance:", usd_balance)
-
-print("ATR:", atr)
-
-print(
-    "Risk:",
-    SETTINGS["RISK_PER_TRADE"] * 100,
-    "%"
-)
-
-print("Contracts:", contracts)
-
-print("=========================\n")
-
 def place_order(signal_data, pair):
     
     market = exchange.market(pair)
@@ -66,6 +50,17 @@ def place_order(signal_data, pair):
         risk_percent=SETTINGS["RISK_PER_TRADE"],
         atr_multiplier=SETTINGS["SL_ATR_MULTIPLIER"]
     )
+    
+    print("\n===== POSITION SIZE =====")
+    print("Balance:", usd_balance)
+    print("ATR:", atr)
+    print(
+        "Risk:",
+        SETTINGS["RISK_PER_TRADE"] * 100,"%"
+    )
+    print("Contracts:", contracts)
+    print("=========================\n")
+
     risk_amount = usd_balance * SETTINGS["RISK_PER_TRADE"]
 
     print(f"LIVE_TRADING = {LIVE_TRADING}")
