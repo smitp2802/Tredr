@@ -3,6 +3,8 @@ PAPER_TRADING = False
 import ccxt
 import os
 from dotenv import load_dotenv
+from strategy.risk import calculate_position_size
+from strategy.config import SETTINGS
 from strategy.config import LIVE_TRADING
 from strategy.config import SETTINGS
 
