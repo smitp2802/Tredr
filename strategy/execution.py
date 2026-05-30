@@ -35,7 +35,23 @@ try:
 except Exception as e:
     print("Balance check failed")
     print(e)
-    
+
+print("\n===== POSITION SIZE =====")
+
+print("Balance:", usd_balance)
+
+print("ATR:", atr)
+
+print(
+    "Risk:",
+    SETTINGS["RISK_PER_TRADE"] * 100,
+    "%"
+)
+
+print("Contracts:", contracts)
+
+print("=========================\n")
+
 def place_order(signal_data, pair):
     
     market = exchange.market(pair)
@@ -43,11 +59,19 @@ def place_order(signal_data, pair):
 
     balance = exchange.fetch_balance()
     usd_balance = balance["total"].get("USD", 0)
+    
+    contracts = calculate_position_size(
+        balance=usd_balance,
+        atr=atr,
+        risk_percent=SETTINGS["RISK_PER_TRADE"],
+        atr_multiplier=SETTINGS["SL_ATR_MULTIPLIER"]
+    )
     risk_amount = usd_balance * SETTINGS["RISK_PER_TRADE"]
 
     print(f"LIVE_TRADING = {LIVE_TRADING}")
 
     signal = signal_data['signal']
+    
 
     print(f"SIGNAL RECEIVED: {signal}")
 
@@ -62,7 +86,7 @@ def place_order(signal_data, pair):
             print("SENDING BUY ORDER TO DELTA")
 
             order = exchange.create_market_buy_order(
-                pair, 1
+                pair, contracts
             )
 
             print("ORDER SUCCESS")
