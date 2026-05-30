@@ -1,15 +1,17 @@
 def calculate_position_size(
-    equity,
+    balance,
+    atr,
     risk_percent,
-    stop_distance
+    atr_multiplier
 ):
 
-    risk_amount = (
-        equity * risk_percent
+    risk_amount = balance * risk_percent
+
+    stop_distance = atr * atr_multiplier
+
+    contracts = max(
+        1,
+        int(risk_amount / stop_distance)
     )
 
-    size = (
-        risk_amount / stop_distance
-    )
-
-    return size
+    return contracts
