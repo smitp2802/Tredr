@@ -161,7 +161,12 @@ def main():
 
             in_position = True
 
-        elif signal_data["signal"] == "SELL":
+        elif signal_data["signal"] == "SELL" and in_position:
+            # Close the open long position
+            place_order(
+                signal_data,
+                PAIR
+            )
 
             in_position = False
 

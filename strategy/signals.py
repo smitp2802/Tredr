@@ -183,8 +183,7 @@ def generate_signal(df):
     if not_overextended:
         score_long += 1
 
-    if htf_trend:
-        score_long += 1
+    # NOTE: htf_trend is the same as higher_tf_trend -- removed double-count
         
     if pullback_ok:
         score_long += 1
@@ -238,10 +237,12 @@ def generate_signal(df):
         #     signal = "SELL"
     
     print("\n===== SCORE BREAKDOWN =====")
-    print("EMA Alignment:", ema_alignment)
-    print("RSI Long:", rsi_long)
-    print("ADX Strong:", adx_strong)
-    print("Volume Strong:", volume_strong)
+    print("Bullish Trend (EMA50>EMA200):", bullish_trend)
+    print("EMA Slope Long:", ema_slope_long)
+    print("Macro Trend Long:", macro_trend_long)
+    print("Momentum Long (RSI>53):", momentum_long)
+    print("Strength (ADX):", strength)
+    print("Volume Confirm:", volume_confirm)
     print("Bullish Candle:", bullish_candle)
     print("LONG SCORE:", score_long)
     print("SHORT SCORE:", score_short)
@@ -258,18 +259,3 @@ def generate_signal(df):
         "atr": round(float(latest['atr']), 2),
         "timestamp": latest.name
     }
-
-    reasons = []
-    if ema_bullish:
-        score_long += 2
-        reasons.append("EMA Trend +2")
-        
-    if rsi_bullish:
-        score_long += 1
-        reasons.append("RSI +1")
-        
-    if volume_spike:
-        score_long += 2
-        reasons.append("Volume +2")
-    
-    print(reasons)

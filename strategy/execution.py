@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 from strategy.risk import calculate_position_size
 from strategy.config import SETTINGS
 from strategy.config import LIVE_TRADING
-from strategy.config import SETTINGS
 
 load_dotenv()
-print("API KEY =", os.getenv("DELTA_API_KEY"))
+# NOTE: Do NOT print API key to console
+# print("API KEY =", os.getenv("DELTA_API_KEY"))
 
 exchange = ccxt.delta({
     "apiKey": os.getenv("DELTA_API_KEY"),
@@ -43,6 +43,8 @@ def place_order(signal_data, pair):
 
     balance = exchange.fetch_balance()
     usd_balance = balance["total"].get("USD", 0)
+
+    atr = signal_data['atr']  # pull atr from signal_data
     
     contracts = calculate_position_size(
         balance=usd_balance,
@@ -81,6 +83,18 @@ def place_order(signal_data, pair):
             print("SENDING BUY ORDER TO DELTA")
 
             order = exchange.create_market_buy_order(
+                pair, contracts
+            )
+
+            print("ORDER SUCCESS")
+
+            print(order)
+
+        elif signal == "SELL":
+
+            print("SENDING SELL ORDER TO DELTA (closing long)")
+
+            order = exchange.create_market_sell_order(
                 pair, contracts
             )
 
