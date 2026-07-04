@@ -1,46 +1,96 @@
-import sys
+"""Trading strategy configuration.
 
-PAIR = "BTC/USD:USD"
-TIMEFRAME = "1h"
-LOOKBACK = 500
+This module contains only pure configuration.  It does NOT read sys.argv or
+access the filesystem, so it is safe to import from tests, backtests, and the
+live bot without side effects.
+"""
 
-LIVE_TRADING = True
+DEFAULT_PAIR = "BTC/USD:USD"
+DEFAULT_TIMEFRAME = "1h"
+DEFAULT_LOOKBACK = 500
 
-PAIR_CONFIGS = {
+# Set to False to log signals without sending real orders.
+LIVE_TRADING = False
 
-    "BTC/USD:USD": {
-        "SCORE_THRESHOLD": 9,
-        "VOLUME_MULTIPLIER": 1.5,
-        "COOLDOWN_CANDLES": 36,
-        "TP_TARGET": 0.10,
-        "EMA_DISTANCE_THRESHOLD": 0.015,
+
+def _base_config(
+    score_threshold=9,
+    volume_multiplier=1.2,
+    cooldown=24,
+    tp=0.04,
+    ema_distance=0.025,
+    sl_atr=2.5,
+    adx=25,
+    contract_value=0.001,
+    mandatory_htf=False,
+    mandatory_macro=False,
+):
+    """Return a base configuration dict with sensible defaults."""
+    return {
+        "SCORE_THRESHOLD": score_threshold,
+        "VOLUME_MULTIPLIER": volume_multiplier,
+        "COOLDOWN_CANDLES": cooldown,
+        "TP_TARGET": tp,
+        "EMA_DISTANCE_THRESHOLD": ema_distance,
         "ATR_THRESHOLD_MULTIPLIER": 1.2,
-        "SL_ATR_MULTIPLIER": 2.0,
+        "SL_ATR_MULTIPLIER": sl_atr,
         "FEES": 0.0005,
         "SLIPPAGE": 0.001,
-        "RISK_PER_TRADE": 0.02,   # 2%
-        "ADX_THRESHOLD": 25
-    },
-
-    "ETH/USD:USD": {
-        "SCORE_THRESHOLD": 7,
-        "VOLUME_MULTIPLIER": 1.8,
-        "COOLDOWN_CANDLES": 48,
-        "TP_TARGET": None,
-        "EMA_DISTANCE_THRESHOLD": 0.01,
-        "ATR_THRESHOLD_MULTIPLIER": 1.2,
-        "SL_ATR_MULTIPLIER": 2.0,
-        "FEES": 0.0005,
-        "SLIPPAGE": 0.001,
-        "RISK_PER_TRADE": 0.02,   # 2%
-        "ADX_THRESHOLD": 30
+        "RISK_PER_TRADE": 0.02,
+        "ADX_THRESHOLD": adx,
+        "MANDATORY_HTF_TREND": mandatory_htf,
+        "MANDATORY_MACRO_TREND": mandatory_macro,
+        "CONTRACT_VALUE": contract_value,
     }
 
+
+PAIR_CONFIGS = {
+    # Delta India BTCUSD perpetual.
+    # Contract value is 0.001 BTC per contract.
+    # Tuned on ~120 days of Delta India 1h data to minimise max drawdown.
+    "BTC/USD:USD": _base_config(
+        score_threshold=9,
+        volume_multiplier=1.2,
+        cooldown=24,
+        tp=0.04,
+        sl_atr=2.5,
+        adx=25,
+        contract_value=0.001,
+        mandatory_htf=False,
+        mandatory_macro=False,
+    ),
+    "ETH/USD:USD": _base_config(
+        score_threshold=9,
+        volume_multiplier=1.2,
+        cooldown=24,
+        tp=0.04,
+        sl_atr=2.5,
+        adx=25,
+        contract_value=0.001,
+        mandatory_htf=False,
+        mandatory_macro=False,
+    ),
+    # Binance futures proxy (used only for deeper history checks).
+    "BTC/USDT:USDT": _base_config(
+        score_threshold=9,
+        volume_multiplier=1.2,
+        cooldown=24,
+        tp=0.04,
+        sl_atr=2.5,
+        adx=25,
+        contract_value=1.0,
+        mandatory_htf=False,
+        mandatory_macro=False,
+    ),
 }
 
-PAIR = sys.argv[1] if len(sys.argv) > 1 else "BTC/USD:USD"
 
-if PAIR not in PAIR_CONFIGS:
-    raise ValueError(f"No config found for {PAIR}")
+def get_settings(pair=None):
+    """Return the settings dict for the requested pair.
 
-SETTINGS = PAIR_CONFIGS[PAIR]
+    Falls back to DEFAULT_PAIR when none is given.
+    """
+    pair = pair or DEFAULT_PAIR
+    if pair not in PAIR_CONFIGS:
+        raise ValueError(f"No config found for {pair!r}")
+    return PAIR_CONFIGS[pair]

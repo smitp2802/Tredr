@@ -19,12 +19,12 @@ env/
 .env
 *.env
 secrets.py
-config.py
-strategy/debug_delta.py
 
 # Logs
 logs/
 *.log
+trade_log.txt
+trades.csv
 
 # n8n local data
 .n8n/
@@ -42,7 +42,6 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
-.env
 
 # Telegram datasets
 telegram/images/
