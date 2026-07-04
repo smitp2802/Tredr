@@ -1,11 +1,11 @@
 from telethon import TelegramClient
 import os
 
-API_ID=38739072
+API_ID=
 
-API_HASH="bfef56ad81b14a2a4266db4f0bdbbc5d"
+API_HASH=""
 
-CHANNEL = "candleking009"
+CHANNEL = ""
 
 client = TelegramClient(
     "tredr_session",
